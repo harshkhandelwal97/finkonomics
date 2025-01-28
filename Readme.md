@@ -21,3 +21,6 @@ To address these challenges, we envision:
 
 ### Conclusion:
 By balancing customer convenience with seller benefits, the Unified Reward System can establish a scalable, transparent ecosystem that creates value for all stakeholders. The system strengthens loyalty, enhances satisfaction, and fosters trust, driving long-term engagement for sellers and customers alike.
+
+### Contibutions Credit:
+Harsh Khandelwal, Ashwin Kumar, Gatikrushna Mohapatra, Vicky Kumar
