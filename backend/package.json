@@ -1,0 +1,16 @@
+{
+  "name": "finkonomics_server",
+  "version": "0.0.0",
+  "description": "this is server code for finkonomics that revolutionize the rewards system ",
+  "main": "server.js",
+  "scripts": {
+    "test": "start"
+  },
+  "keywords": [
+    "finkomonics",
+    "rws",
+    "rewards"
+  ],
+  "author": "vicky",
+  "license": "ISC"
+}
