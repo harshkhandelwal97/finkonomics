@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../styles/user_registration.css";
 import { Visibility, VisibilityOff } from "@mui/icons-material"; // Import Material UI icons
 
-const URegistrationForm = () => {
+const UserRegistration = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
@@ -93,4 +93,4 @@ const URegistrationForm = () => {
   );
 };
 
-export default URegistrationForm;
+export default UserRegistration;
