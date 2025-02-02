@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import "../styles/UserPhoneRegistration.css"; // Import the CSS file
-const OTPScreen: React.FC = () => {
+const UserOtpScreen: React.FC = () => {
   const [otp, setOtp] = useState<string[]>(['', '', '', '', '', '']);
   const [timeLeft, setTimeLeft] = useState<number>(60); // Timer starts at 60 seconds
   const [isResendDisabled, setIsResendDisabled] = useState<boolean>(true);
@@ -103,4 +103,4 @@ const OTPScreen: React.FC = () => {
   );
 };
 
-export default OTPScreen;
+export default UserOtpScreen;
