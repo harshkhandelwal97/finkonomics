@@ -24,6 +24,8 @@
   background-color: #fffad8;
 }
 
+
+
 .company-info {
   display: flex;
   flex-direction: column;
@@ -119,4 +121,10 @@
   margin: 0 auto;
   background-color: #bacd9a;
   border-radius: 30px;
+}
+
+.company-exchange
+{
+  border: 2px solid red;
+  margin-right: 2%;
 }
