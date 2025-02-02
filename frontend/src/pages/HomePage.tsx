@@ -3,7 +3,6 @@ import React from "react";
 import "../styles/homepage.css";
 import { PointsSummaryProps } from "../types/types";
 import Header1 from "../components/Header1";
-import Footer1 from "../components/footer";
 import CompanyCard from "../components/companycardHome";
 export const Homepage: React.FC<PointsSummaryProps> = ({
   totalPoints,
@@ -43,8 +42,7 @@ export const Homepage: React.FC<PointsSummaryProps> = ({
       </div>
 
       <CompanyCard />
-      
-      <Footer1 />
+
     </div>
   );
 };
