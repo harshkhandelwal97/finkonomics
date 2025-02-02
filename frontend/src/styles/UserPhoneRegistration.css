@@ -1,0 +1,151 @@
+/* Add this to your existing CSS file (register.css) */
+.otp-boxes {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    background-color: white; /* Ensure the container background is white */
+}
+
+.otp-input {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    color: black;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    background-color: rgb(255, 255, 255); /* Ensure the input boxes themselves are white */
+}
+
+.otp-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.bottom-section {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.timer {
+    font-size: 16px;
+    color: #555;
+}
+
+.resend-button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: black;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.resend-button:disabled {
+    background-color: #eae4e4;
+    cursor: not-allowed;
+}
+
+.resend-button:not(:disabled):hover {
+    background-color: #f3f5f7;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.form-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.back-button {
+    background: #FFFFFF;
+    color: #A9A9A9;
+    margin-left: 34px;
+    width: 96px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid #A9A9A9; /* Use border to define both width and color */
+  }
+  
+  .back-button:hover {
+    background: #f5f3f3;
+  }
+  
+  .next-button {
+    background: #368455;
+    color: #ffffff;
+    margin-right: 25px;
+    width: 96px;
+    height: 40px;
+    border-radius: 8px;
+  }
+  
+  .next-button:hover {
+    background:#368455;
+  }
+ 
+  h3{
+    color: black;
+  }
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #fffbcf, #ffffff) no-repeat;
+    background-size: 100% 15%; /* Gradient only on the top 10% */
+    background-color: #ffffff; /* Full white background for the rest of the body */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    border: 1px solid #A9A9A9
+  }
+  .mobile-input-group {
+    text-align: left;
+    margin-bottom: 15px;
+  }
+  
+  .mobile-input-group label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  .mobile-wrapper {
+    display: flex;
+    align-items: center;
+    margin-right: 2px;
+  }
+  
+  .country-code {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    background: #f9f9f9;
+    font-size: 14px;
+    margin-right: 10px;
+    height: 43px;
+  }
+  
+  .mobile-wrapper input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-left: none;
+    border-radius: 0 5px 5px 0;
+    height: 24px;
+  }
+  
