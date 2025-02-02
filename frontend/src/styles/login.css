@@ -1,0 +1,87 @@
+/* Login.css */.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f1efef; /* Light gray background */
+    font-family: sans-serif; /* Use a clean font */
+  }.login-box {
+    background-color: #f1efef;
+    padding: 30px;
+    border-radius: 8px;
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+    width: 80%; /* Adjust width as needed */
+    text-align: center; /* Center the content within the box */
+  }.login-box h1 {
+    color: #333; /* Dark gray heading color */
+    margin-bottom: 10px;
+  }.login-box p {
+    color: #666; /* Slightly lighter gray text color */
+    margin-bottom: 20px;
+  }.google-login-btn {
+    background-color: #fbfbfb; /* Google blue */
+    color: #9d8e8e;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Vertically align items */
+    justify-content: center; /* Horizontally center items */
+    margin-bottom: 20px;
+    width: 100%; /* Make button full width */
+    font-size: large;
+  }.google-logo {
+    width: 7%;
+    height: 7%;
+    margin-right: 10px;
+  }.separator {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }.separator hr {
+    flex-grow: 1;
+    border: none;
+    border-top: 1px solid #ccc; /* Light gray line */
+  }.separator span {
+    margin: 0 10px;
+    color: #999;
+  }.login-box input {
+    width: calc(100% - 22px); /* Account for padding and border */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+  }.login-btn {
+    background-color: #221729; /* Blue button */
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+  }.forgot-password {
+    display: block; /* Make it a block element for proper spacing */
+    margin-top: 10px;
+    color: #404040; /* Blue link color */
+    text-decoration: underline;
+    font-size: 14px;
+    font-style: italic;
+  }.register-link {
+    margin-top: 20px;
+    color: #666;
+    font-size: 14px;
+  }.register-link a {
+    color: #0d0e0e;
+    text-decoration: underline;
+    font-weight: bold;
+  }
+  
+  /* Responsive adjustments (example) */
+  @media (max-width: 400px) {
+  .login-box {
+      width: 90%; /* Make login box almost full width on smaller screens */
+      padding: 20px;
+    }
+  }
