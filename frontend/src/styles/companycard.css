@@ -1,0 +1,130 @@
+.company-outer-box {
+  background-color: #bacd9a;
+  width: 100%;
+  border-radius: 32px;
+  padding: 1vh;
+}
+.company-card-container {
+  font-family: Arial, sans-serif;
+  max-width: 80%;
+  margin: auto;
+  margin-top: 2%;
+  margin-bottom: 3%;
+}
+
+.company-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  /* border: 1px solid red; */
+  border-radius: 10px;
+  margin-bottom: 8px;
+  background-color: #fffad8;
+}
+
+
+
+.company-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.company-name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.company-points {
+  font-size: 12 px;
+  color: #555;
+  display: flex;
+  align-items: center;
+}
+
+.info-icon {
+  margin-left: 5px;
+  cursor: pointer;
+  font-size: 12px;
+}
+.company-checkbox {
+  margin-left: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  accent-color: #fffad8;
+}
+
+.search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  /* max-width: 600px; */
+  margin: 10px auto;
+  text-align: center;
+}
+
+.searchbox-wrapper {
+  display: flex;
+  align-items: center;
+  width: 90%;
+  gap: 3%;
+  margin-bottom: 1vh;
+}
+
+.searchbox {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 1px;
+  flex-grow: 1;
+  height: 40px;
+}
+
+.searchbox-input {
+  border: none;
+  outline: none;
+  flex-grow: 1;
+  padding: 5px;
+}
+
+.filter-button {
+  padding: 8px 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.landing-page-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  /* Prevent the entire page from scrolling */
+}
+
+.company-card-scroll-container {
+  flex-grow: 1; /* Take up remaining space */
+  overflow-y: auto;
+  /* Enable vertical scrolling */
+  padding: 10px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #bacd9a;
+  border-radius: 30px;
+}
+
+.company-exchange
+{
+  border: 2px solid red;
+  margin-right: 2%;
+}

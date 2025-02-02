@@ -1,0 +1,101 @@
+.company-outer-box {
+    background-color: #BACD9A;
+    width: 100%;
+    border-radius: 32px 32px 0px 0px;
+    padding: 1vh;
+    margin-bottom: 6vh;
+  }
+  /* .company-card-container {
+    font-family: Arial, sans-serif;
+    max-width: 100%;
+    margin: auto;
+    /* margin: 2%; */
+    /* border: 1px solid; */
+  /* } */ */
+
+  .month-total-item
+{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  /* border: 1px solid red; */
+  /* border-radius: 10px; */
+  margin-bottom: 8px;
+  background-color: #fffad8;
+  overflow: hidden;
+}
+  
+  .company-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    /* border-bottom: 1px solid red; */
+    border: 1px solid red;
+    border-radius: 10px;
+    /* margin-bottom: 1%; */
+    background-color: #fffad8;
+    margin: 2%;
+    width: 90%;
+    height: 8vh;
+  }
+
+
+  
+  
+  .company-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .company-name {
+    font-size: 19px;
+    font-weight: bold;
+    margin: 2px;
+  }
+  
+  .company-pts {
+    font-size: 12 px;
+    font-weight: bold;
+    /* margin: 2px; */
+  }
+  
+
+.landing-page-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    /* Prevent the entire page from scrolling */
+  }
+  
+
+  .company-card-scroll-container {
+    flex-grow: 1; /* Take up remaining space */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+    padding: 10px;
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  .company-exchange
+  {
+    /* border: 2px solid red; */
+    margin-right: 2%;
+    padding-right: 2%;
+  }
+
+  .month-money
+  {
+    font-size: x-large;
+    color: green;
+  }
+
+  .money
+  {
+    font-size: x-large;
+  }

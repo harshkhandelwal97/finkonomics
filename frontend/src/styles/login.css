@@ -1,0 +1,132 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: white ;
+}
+
+.login-box {
+  background:#FAFAFA;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #368455
+}
+
+p {
+  font-size: 16px;
+  color:#404040;
+  font-weight: bold;
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+}
+
+.separator hr {
+  flex: 1;
+  border: none;
+  height: 1px;
+  background: #ccc;
+}
+
+.separator span {
+  padding: 0 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+.input-group {
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.mobile-input-group {
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.mobile-input-group label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.mobile-wrapper {
+  display: flex;
+  align-items: center;
+  margin-right: 2px;
+}
+
+.country-code {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+  background: #f9f9f9;
+  font-size: 14px;
+  margin-right: 10px;
+  height: 43px;
+}
+
+.mobile-wrapper input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-left: none;
+  border-radius: 0 5px 5px 0;
+  height: 24px;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 10px;
+  background: #368455;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.forgot-password {
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
+  color: black;
+}
+
+.register-link {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.register-link a {
+  color: black;
+  text-decoration: underline ;
+  font-weight: bold;
+}
