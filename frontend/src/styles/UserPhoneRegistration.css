@@ -100,9 +100,9 @@
   h3{
     color: black;
   }
-  body {
+  .bg {
     font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom, #fffbcf, #ffffff) no-repeat;
+    /* background: linear-gradient(to bottom, #fffbcf, #ffffff) no-repeat; */
     background-size: 100% 15%; /* Gradient only on the top 10% */
     background-color: #ffffff; /* Full white background for the rest of the body */
     display: flex;

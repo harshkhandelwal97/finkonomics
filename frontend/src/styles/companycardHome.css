@@ -1,24 +1,153 @@
-.company-outer-box {
-    background-color: #BACD9A;
-    width: 100%;
-    border-radius: 32px 32px 0px 0px;
-    padding: 1vh;
-    margin-bottom: 6vh;
-  }
-  /* .company-card-container {
-    font-family: Arial, sans-serif;
-    max-width: 100%;
-    margin: auto;
-    /* margin: 2%; */
-    /* border: 1px solid; */
-  /* } */ */
+.company-outer-box1 {
+  background-color: #bacd9a;
+  border-radius: 32px 32px 0px 0px;
+  padding: 20px;
+  padding-top: 24px;
+}
 
-  .month-total-item
-{
+.company-outer-box1 .company-card-container .company-item {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border-radius: 16px;
+  background-color: #fffad8;
+  gap: 8px;
+  margin-bottom:16px;
+  /* border-color: aqua; */
+}
+
+.company-outer-box1 .company-card-container .qty-point {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+}
+
+.company-outer-box1 .company-card-container .company-item .brand-logo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.company-outer-box1 .company-card-container .company-item .brand-logo .brand-logo-name {
+  display: flex;
+  align-items:center;
+  justify-content:space-between ;
+  /* width: 30%; */
+  /* border: 1px solid; */
+}
+
+.company-outer-box1 .company-card-container .company-item .brand-logo .brand-logo-name .brand-name {
+  display: flex;
+  align-items:center;
+  justify-content:space-between ;
+  /* width: 30%; */
+  margin-left: 5px;
+  /* border: 1px solid; */
+}
+
+.home-arrow
+{
+  /* border: 2px solid; */
+  background-color: #368455;
+  border-radius: 8px;
+  border: none;
+  margin-left: 5px;
+}
+
+.point-info
+{
+  
+  display: flex;
+  /* border: 2px solid; */
+  align-items: center;
+  justify-content: space-between;
+}
+
+.money-arrow
+{
+  /* border: 2px solid; */
+  display: flex;
+  align-items: center;
+  
+}
+.moneydetail
+{
+  font-size: larger ;
+  font-weight: bold;
+}
+
+
+.company-outer-box1 .company-card-container .expiry-info{
+  text-align: left;
+  width: 100%;
+}
+
+.company-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.company-name {
+  font-size: 19px;
+  font-weight: bold;
+  margin: 2px;
+}
+
+.company-pts {
+  font-size: 12 px;
+  font-weight: bold;
+  /* margin: 2px; */
+}
+
+.landing-page-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  /* Prevent the entire page from scrolling */
+}
+
+.company-card-scroll-container {
+  flex-grow: 1; /* Take up remaining space */
+  overflow-y: auto;
+  /* Enable vertical scrolling */
   padding: 10px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.company-exchange-1 {
+  /* border: 2px solid red; */
+  margin-right: 2%;
+  padding-right: 2%;
+  /* border: 5px solid red; */
+}
+
+.month-money {
+  font-size: x-large;
+  color: green;
+}
+
+.money {
+  font-size: x-large;
+}
+
+
+
+
+
+
+
+
+
+/* this is for history page */
+
+.month-total-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
   width: 100%;
   border-bottom: 1px solid #ccc;
   /* border: 1px solid red; */
@@ -27,75 +156,3 @@
   background-color: #fffad8;
   overflow: hidden;
 }
-  
-  .company-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    /* border-bottom: 1px solid red; */
-    border: 1px solid red;
-    border-radius: 10px;
-    /* margin-bottom: 1%; */
-    background-color: #fffad8;
-    margin: 2%;
-    width: 90%;
-    height: 8vh;
-  }
-
-
-  
-  
-  .company-info {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .company-name {
-    font-size: 19px;
-    font-weight: bold;
-    margin: 2px;
-  }
-  
-  .company-pts {
-    font-size: 12 px;
-    font-weight: bold;
-    /* margin: 2px; */
-  }
-  
-
-.landing-page-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    overflow: hidden;
-    /* Prevent the entire page from scrolling */
-  }
-  
-
-  .company-card-scroll-container {
-    flex-grow: 1; /* Take up remaining space */
-    overflow-y: auto;
-    /* Enable vertical scrolling */
-    padding: 10px;
-    width: 100%;
-    max-width: 800px;
-  }
-  
-  .company-exchange
-  {
-    /* border: 2px solid red; */
-    margin-right: 2%;
-    padding-right: 2%;
-  }
-
-  .month-money
-  {
-    font-size: x-large;
-    color: green;
-  }
-
-  .money
-  {
-    font-size: x-large;
-  }

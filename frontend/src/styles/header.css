@@ -1,7 +1,28 @@
 .header-box
 {
-  height: 6vh;
+
+  /* border: 2px solid red; */
   width: 100%;
-  margin-left: 5%;
-  margin-top: 0px;
+  background-color: white;
+  /* border: 2px solid red; */
+ 
+  padding: 15px 0px 0px 15px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.uidno
+{
+  font-size: small;
+  color: #404040;
+  margin: 2px;
+
+}
+
+.greeting-name
+{
+  font-size: large;
+  font-weight: bold;
+  color: #404040;
 }

@@ -1,10 +1,14 @@
-import { useState } from "react";
-import "../styles/user_registration.css";
-import { Visibility, VisibilityOff } from "@mui/icons-material"; // Import Material UI icons
+import React, { useState } from 'react';
+import '../styles/UserRegistration.css'
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
-const UserRegistration = () => {
+const UserRegistrationPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -14,83 +18,105 @@ const UserRegistration = () => {
     setConfirmPasswordVisible(!confirmPasswordVisible);
   };
 
+  const handleSubmit = (e:React.FormEvent) => {
+    e.preventDefault();
+    console.log('Full Name:', fullName);
+    console.log('Email Address:', email);
+    console.log('Password:', password);
+    // Handle form submission logic here (e.g., API call)
+  };
+
   return (
-    <>
-      <div className="bg">
-        <h3>You are just a few steps away!</h3>
-        <div className="form-container">
-          <div className="form-box">
-            <h2 className="form-title"></h2>
-            <form>
-              <div className="form-group">
-                <input
-                  type="text"
-                  placeholder="Full Name"
-                  className="form-input"
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  type="email"
-                  placeholder="Mail id"
-                  className="form-input"
-                />
-              </div>
-              <div className="form-group">
-                <label className="form-label">Choose a Password</label>
-                <div className="form-password">
-                  <input
-                    type={passwordVisible ? "text" : "password"}
-                    placeholder="Password"
-                    className="form-input"
-                  />
-                  <button
-                    type="button"
-                    onClick={togglePasswordVisibility}
-                    className="password-toggle"
-                  >
-                    {passwordVisible ? <Visibility />:<VisibilityOff />} {/* Material UI icons */}
-                  </button>
-                </div>
-              </div>
-              <div className="form-group">
-                <label className="form-label">Confirm Password</label>
-                <div className="form-password">
-                  <input
-                    type={confirmPasswordVisible ? "text" : "password"}
-                    placeholder="Password"
-                    className="form-input"
-                  />
-                  <button
-                    type="button"
-                    onClick={toggleConfirmPasswordVisibility}
-                    className="password-toggle"
-                  >
-                    {confirmPasswordVisible ? <Visibility />:<VisibilityOff />} {/* Material UI icons */}
-                  </button>
-                </div>
-              </div>
-              <div className="form-buttons">
-                <button type="button" className="form-button back-button">
-                  Back
-                </button>
-                <button type="submit" className="form-button next-button">
-                  Next
-                </button>
-              </div>
-              <p className="form-footer">
-                By clicking on Register, you agree to our{" "}
-                <a href="#" className="form-link">
-                  Terms and Conditions
-                </a>
-                .
-              </p>
-            </form>
+    <div className="register-container">
+      <div className="register-box">
+        <h1>Finkonomics</h1>
+        <p>You are just few steps away!</p>
+
+        <form onSubmit={handleSubmit}>
+          <div className="input-group">
+            <label htmlFor="fullName">Full Name</label>
+            <input
+              type="text"
+              id="fullName"
+              placeholder="Ex: John Doe"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              required
+            />
           </div>
+
+          <div className="input-group">
+            <label htmlFor="email">Mail id</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="Ex: office@amazon.in"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="password">Choose a Password</label>
+            <div className="password-wrapper">
+              <input
+                type={passwordVisible ? 'text' : 'password'}
+                id="password"
+                placeholder="Ex: ••••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="password-toggle"
+              >
+                {passwordVisible ? <Visibility /> : <VisibilityOff />}
+              </button>
+            </div>
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <div className="password-wrapper">
+              <input
+                type={confirmPasswordVisible ? 'text' : 'password'}
+                id="confirmPassword"
+                placeholder="Ex: ••••••••••"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                onClick={toggleConfirmPasswordVisibility}
+                className="password-toggle"
+              >
+                {confirmPasswordVisible ? <Visibility /> : <VisibilityOff />}
+              </button>
+            </div>
+          </div>
+
+          <div className="btn-container">
+            <button className="back-btn">Back</button>
+            <button type="submit" className="next-btn">Next</button>
+          </div>
+        </form>
+
+        <div className="terms-conditions">
+          
+            By clicking on Register, you agree to our{' '}
+            <a href="/terms" className="terms-link">
+              Terms and Conditions
+            </a>
+
+          
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
-export default UserRegistration;
+export default UserRegistrationPage;

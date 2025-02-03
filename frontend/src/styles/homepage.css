@@ -1,10 +1,22 @@
+
+.pointinfo-sort
+{
+  border: 2px solid green;
+  justify-content: center;
+  width:100%;
+}
 .summary {
+  
     background: #fff;
     border-radius: 16px;
     border: 1px solid #bacd9a;
     box-shadow: 0 2px 4px rgba(51, 77, 7, 0.25);
-    margin: 24px 20px;
+ 
     padding: 24px 16px;
+    /* border: 2px solid; */
+ 
+    max-width: 90%;
+    margin-left: 10%;
   }
   
   .savedAmount {

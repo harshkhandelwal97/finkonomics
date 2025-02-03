@@ -1,0 +1,55 @@
+.filter-sort-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    /* border: 2px solid; */
+    width: 100%;
+  }
+  
+  .filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: white;
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .coins-value
+  {
+    /* border: 2px solid; */
+    display: flex;
+    justify-content: space-between;
+    width:50%
+  }
+  
+  .icon {
+    font-size: 16px;
+  }
+  
+  .sort-btn {
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-weight: bold;
+    cursor: pointer;
+    color: black;
+  }
+  
+  .sort-btn.disabled {
+    color: #aaa;
+    cursor: not-allowed;
+    border-color: #ddd;
+  }
+  
+  .sort-btn.active {
+    background: black;
+    color: white;
+    border-color: black;
+  }
+  
