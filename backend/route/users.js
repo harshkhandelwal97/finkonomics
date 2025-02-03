@@ -158,7 +158,7 @@ router.post('/verify-phone', async (req, res) => {
     );
 
     // Generate a JWT token or set a cookie for the user
-    const token = jwt.sign({ id: user.rows[0].id }, process.env.JWT_AUTH_SECRET, { expiresIn: '7d' });
+    const token = jwt.sign({ id: user.rows[0].id, entity: "seller" }, process.env.JWT_AUTH_SECRET, { expiresIn: '7d' });
 
     res.status(200).json({ message: 'Phone number verified successfully', token });
   } catch (err) {
@@ -187,7 +187,7 @@ router.post('/login', async (req, res) => {
         const otp = crypto.randomInt(100000, 999999).toString();
         const tokenExpires = new Date(Date.now() + 300000); // 5 minutes
 
-        console.log({location: "/login", phoneOtp: otp})
+        console.log({ location: "/login", phoneOtp: otp })
 
         // Store the OTP in the database
         await pool.query(
@@ -220,7 +220,7 @@ router.post('/login', async (req, res) => {
 
       // send the otp to mail
 
-      console.log({ location: "/login",emailOtp: otp })
+      console.log({ location: "/login", emailOtp: otp })
 
       // save the otp and expiry to database
 
@@ -587,18 +587,17 @@ router.put('/update-profile', authMiddleware, async (req, res) => {
 router.get('/get-all-sellers', authMiddleware, async (req, res) => {
   try {
     // Extract query parameters
-    const { search, natureOfBusiness, page = 1, limit = 10 } = req.query;
+    const { search, natureOfBusiness, page = 1, limit = 100 } = req.query;
     const offset = (page - 1) * limit;
 
     // Base query
     let query = `
         SELECT 
           id, 
-          name, 
+          "legalName", 
           logo, 
-          coinName, 
-          coinLogo,
-          natureOfBusiness
+          "coinName", 
+          "coinLogo",
         FROM "sellersInfo" 
         WHERE isDeleted = FALSE
       `;
@@ -607,13 +606,13 @@ router.get('/get-all-sellers', authMiddleware, async (req, res) => {
 
     // Add search functionality (by name)
     if (search) {
-      query += ` AND name ILIKE $${params.length + 1}`;
+      query += ` AND "legalName" ILIKE $${params.length + 1}`;
       params.push(`%${search}%`);
     }
 
     // Add filter functionality (by nature of business)
     if (natureOfBusiness) {
-      query += ` AND natureOfBusiness = $${params.length + 1}`;
+      query += ` AND "natureOfBusiness" = $${params.length + 1}`;
       params.push(natureOfBusiness);
     }
 
@@ -628,7 +627,7 @@ router.get('/get-all-sellers', authMiddleware, async (req, res) => {
     const sellers = await pool.query(query, params);
 
     // Get the total count of sellers (for infinite scrolling)
-    let countQuery = `SELECT COUNT(*) FROM "sellersInfo" WHERE isDeleted = FALSE`;
+    let countQuery = `SELECT COUNT(*) FROM "sellersInfo" WHERE "isDeleted" = FALSE`;
     const countParams = [];
 
     if (search) {
@@ -637,7 +636,7 @@ router.get('/get-all-sellers', authMiddleware, async (req, res) => {
     }
 
     if (natureOfBusiness) {
-      countQuery += ` AND natureOfBusiness = $${countParams.length + 1}`;
+      countQuery += ` AND "natureOfBusiness" = $${countParams.length + 1}`;
       countParams.push(natureOfBusiness);
     }
 
@@ -661,7 +660,7 @@ router.get('/get-all-sellers', authMiddleware, async (req, res) => {
 
 // Add Companies to User's Portfolio
 
-router.post('/add-companies', authMiddleware, async (req, res) => {
+router.post('/add-sellers', authMiddleware, async (req, res) => {
   const { companyIds } = req.body; // Array of sellerIds from the frontend
   const userId = req.user.id; // Authenticated user's ID from the middleware
 
@@ -672,9 +671,10 @@ router.post('/add-companies', authMiddleware, async (req, res) => {
 
     // Insert each company into the user's portfolio
     for (const sellerId of companyIds) {
+      const points = parseInt(Math.random() * 10000)
       await pool.query(
-        'INSERT INTO "userPortfolio" (sellerId, userId) VALUES ($1, $2)',
-        [sellerId, userId]
+        'INSERT INTO "userPortfolio" ("sellerId", "userId", "coinsAvailable") VALUES ($1, $2, $3)',
+        [sellerId, userId, points]
       );
     }
 
@@ -687,6 +687,39 @@ router.post('/add-companies', authMiddleware, async (req, res) => {
       return res.status(400).json({ message: 'Invalid sellerId or userId' });
     }
 
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// route for getting all the company register by the users
+
+router.get('/get-user-portfolio', authMiddleware, async (req, res) => {
+  try {
+    const userId = req.user.id; // Extract userId from token middleware
+
+    const query = `
+      SELECT 
+        s.id,
+        s.logo, 
+        s."coinName", 
+        s.id AS "sellerId", 
+        s."legalName", 
+        f."currentExchangeRatio", 
+        COALESCE(SUM(p."coinsAvailable"), 0) AS "coinsAvailable"
+      FROM "sellersInfo" s
+      LEFT JOIN "sellerFinancialInfo" f ON s.id = f."sellerId"
+      LEFT JOIN "userPortfolio" p ON s.id = p."sellerId"
+      WHERE s."isDeleted" = FALSE
+        AND p."userId" = $1
+      GROUP BY s.id, f."currentExchangeRatio"
+      ORDER BY s."createdAt" DESC;
+    `;
+
+    const result = await pool.query(query, [userId]);
+
+    res.json({ sellers: result.rows });
+  } catch (err) {
+    console.error(err.message);
     res.status(500).json({ message: 'Server error' });
   }
 });
