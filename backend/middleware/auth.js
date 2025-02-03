@@ -20,7 +20,13 @@ const authMiddleware = async (req, res, next) => {
     }
 
     // Fetch the user from the database 
-    const userQuery = `SELECT id, email FROM users WHERE id = $1`;
+
+    let userQuery;
+    if(decoded.entity === "seller"){
+      userQuery = `SELECT id, email FROM "sellersInfo" WHERE id = $1`;
+    }else{
+      userQuery = `SELECT id, email FROM users WHERE id = $1`;
+    }
     const { rows } = await pool.query(userQuery, [decoded.id]);
 
     // Check if user exists
