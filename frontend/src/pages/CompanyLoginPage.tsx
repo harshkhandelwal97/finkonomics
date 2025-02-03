@@ -7,7 +7,7 @@ const CompanyLoginPage = () => {
   const [mobileNumber, setMobileNumber] = useState('');
   const [countryCode, setCountryCode] = useState('+1'); // Default country code
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Seller ID:', sellerId);
     console.log('Password:', password);
