@@ -2,11 +2,9 @@ import "../styles/header.css";
 
 const Header1 = () => {
   return (
-    <div >
-      <div className="header-box">
-        <h4>Good Evening: Gatikrushna Mohapatra</h4>
-        <h5>UID- 8987634sfkd93</h5>
-      </div>
+    <div className="header-box">
+      <div className="greeting-name">Good Evening, Gatikrushna Mohapatra</div>
+      <div className="uidno">UID- 8987634sfkd93</div>
     </div>
   );
 };
