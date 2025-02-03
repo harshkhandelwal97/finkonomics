@@ -8,7 +8,7 @@ const PhoneNumberScreen: React.FC = () => {
   const [isResendDisabled, setIsResendDisabled] = useState<boolean>(true);
   const [mobileNumber, setMobileNumber] = useState('');
   const [countryCode, setCountryCode] = useState('+1');
-  const handleSubmit = (e) => {
+  const handleSubmit = (e:React.FormEvent) => {
     e.preventDefault();
     // console.log('Seller ID:', sellerId);
     // console.log('Password:', password);

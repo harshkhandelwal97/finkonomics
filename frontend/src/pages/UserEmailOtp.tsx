@@ -31,7 +31,20 @@ const UserOtpScreen: React.FC = () => {
     // Add logic to verify OTP
   };
 
+  // const handleInputChange = (index: number, value: string) => {
+  //   const newOtp = [...otp];
+  //   newOtp[index] = value;
+  //   setOtp(newOtp);
+
+  //   // Auto-focus to the next input box
+  //   if (value && index < 5) {
+  //     inputRefs.current[index + 1].focus();
+  //   }
+  // };
+
   const handleInputChange = (index: number, value: string) => {
+    if (!/^\d?$/.test(value)) return; // Ensure only digits are entered
+
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
