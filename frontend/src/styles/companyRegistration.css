@@ -1,0 +1,275 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: white ;
+  }
+  
+  .login-box {
+    background:#FAFAFA;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #368455
+  }
+  
+  p {
+    font-size: 16px;
+    color:#404040;
+    font-weight: bold;
+  }
+  
+  .separator {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+  }
+  
+  .separator hr {
+    flex: 1;
+    border: none;
+    height: 1px;
+    background: #ccc;
+  }
+  
+  .separator span {
+    padding: 0 10px;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .input-group {
+    text-align: left;
+    margin-bottom: 15px;
+    width:100%
+  }
+  
+  .input-group label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .mobile-input-group {
+    text-align: left;
+    margin-bottom: 15px;
+  }
+  
+  .mobile-input-group label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  .mobile-wrapper {
+    display: flex;
+    align-items: center;
+    margin-right: 2px;
+  }
+  
+  .country-code {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    background: #f9f9f9;
+    font-size: 14px;
+    margin-right: 10px;
+    height: 43px;
+  }
+  
+  .mobile-wrapper input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-left: none;
+    border-radius: 0 5px 5px 0;
+    height: 24px;
+  }
+  
+  .login-btn {
+    width: 100%;
+    padding: 10px;
+    background: #368455;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .forgot-password {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: black;
+  }
+  
+  .register-link {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  
+  .register-link a {
+    color: black;
+    text-decoration: underline ;
+    font-weight: bold;
+  }
+  /* ... (rest of your CSS) */
+  
+  .login-btn {
+    width: 100%;
+    padding: 10px;
+    background: #368455;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 20px; /* Added margin */
+  }
+  
+  .support-login {
+    display: flex;
+    justify-content: space-between; /* Align items on opposite ends */
+    align-items: center; /* Vertically center items */
+  }
+  
+  .support-link, .login-link {
+    color: black;
+    text-decoration: none; /* Remove underlines from links */
+    font-size: 14px;
+  }
+  
+  .login-link span { /* Style the "Login" text */
+    font-weight: bold;
+  }
+  
+  /* Style password visibility icons */
+  /* ... (rest of your CSS) */
+  
+  .password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc; /* Added border to the wrapper */
+    border-radius: 5px; /* Added border-radius to the wrapper */
+    overflow: hidden; /* Hide any overflowing icon */
+  }
+  
+  .password-wrapper input {
+    flex: 1; /* Allow input to take up available space */
+    padding: 10px;
+    border: none; /* Remove border from the input itself */
+    box-sizing: border-box;
+  }
+  
+  .password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    /* Add some styles for better visibility */
+    color: #777; /* Example color */
+  }
+  
+  /* Optional: Add hover effect for the icon */
+  .password-toggle:hover {
+    color: #333;
+  }
+  
+  /* Ensure consistent input height */
+  .input-group input {
+    height: 40px; /* Adjust as needed */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  /* ... (rest of your CSS) */
+  
+  /* ... (rest of your CSS) */
+  .country-state-wrapper {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .country-state-wrapper select {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-chevron-down' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") no-repeat right 10px center; */
+    padding-right: 30px;
+  }
+  
+  .pincode-wrapper {
+    display: flex;
+    gap: 5
+  }
+  
+  .pin-input {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    padding: 5px;
+    box-sizing: border-box;
+  }
+  
+  .pin-input:focus {
+    outline: none;
+    border-color: #368455;
+    box-shadow: 0 0 5px rgba(#368455, 0.2);
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .back-btn, .next-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .back-btn {
+    background-color: #eee;
+    color: #333;
+  }
+  
+  .next-btn {
+    background-color: #368455;
+    color: white;
+  }
+  
