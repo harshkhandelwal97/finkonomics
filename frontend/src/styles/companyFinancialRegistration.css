@@ -1,0 +1,134 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa; /* Light gray background */
+  }
+  
+  .login-box {
+    background: #fff; /* White box background */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 70%; /* Adjust width as needed */
+    text-align: left; /* Align text to the left */
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #368455; /* Dark gray heading color */
+    text-align: center; /* Center the heading */
+  }
+  
+  p {
+    font-size: 16px;
+    color: #404040; /* Gray text color */
+    margin-bottom: 20px; /* Add spacing below paragraphs */
+    text-align: center; /* Center the paragraphs */
+  }
+  
+  .input-group {
+    margin-bottom: 15px;
+  }
+  
+  .input-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #343a40; /* Dark gray label color */
+    margin-bottom: 10px;
+  }
+  
+  .input-group input,
+  .input-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da; /* Light gray border */
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  
+  .input-group input:focus,
+  .input-group select:focus {
+    outline: none;
+    border-color: #80bdff; /* Highlight border on focus */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Subtle shadow on focus */
+  }
+  
+  .country-state-wrapper {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .country-state-wrapper select {
+    flex: 1;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-chevron-down' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") no-repeat right 10px center; */
+    padding-right: 30px;
+  }
+  
+  .pincode-wrapper {
+    gap: 5px;
+    display: flex;
+     box-sizing: border-box;
+  }
+  
+  .pin-input {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 16px;
+    padding: 5px;
+    box-sizing: border-box;
+  }
+  
+  .pin-input:focus {
+    outline: none;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .back-btn,
+  .next-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  }
+  
+  .back-btn {
+    background-color: #fff; /* White background */
+    color: #6c757d; /* Gray text color */
+    border: 1px solid #ced4da; 
+    margin-right:auto;/* Light gray border */
+  }
+  
+  .back-btn:hover {
+    background-color: #f0f0f0; /* Light gray background on hover */
+    color: #343a40; /* Darker gray text on hover */
+    border-color: #adb5bd; /* Slightly darker border on hover */
+  }
+  
+  .next-btn {
+    background-color: #368455; /* Blue background */
+    color: #fff; /* White text color */
+  }
+  
+  .next-btn:hover {
+    background-color: #0069d9; /* Darker blue background on hover */
+  }
