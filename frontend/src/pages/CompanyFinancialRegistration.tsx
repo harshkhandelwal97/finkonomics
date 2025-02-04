@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import '../styles/companyFinancialRegistration.css';
+import '../styles/companyFinancialRegistration.css'; // Import your CSS file
 
 interface AdditionalDetailsPageProps {
   // Add any props your component might receive here
@@ -12,7 +12,8 @@ const CompanyFinancialDetailsPage: React.FC<AdditionalDetailsPageProps> = () => 
   const [country, setCountry] = useState('India');
   const [state, setState] = useState('Odisha');
   const [pinCode, setPinCode] = useState(['', '', '', '', '', '']);
-  const pinInputRefs = useRef<HTMLInputElement[]>([]);
+  const pinInputRefs = useRef<Array<HTMLInputElement | null>>([]);
+  const [errors, setErrors] = useState<{ gstin?: string; address1?: string; pinCode?: string }>({});
 
   useEffect(() => {
     pinInputRefs.current = pinInputRefs.current.slice(0, 6);
@@ -20,19 +21,26 @@ const CompanyFinancialDetailsPage: React.FC<AdditionalDetailsPageProps> = () => 
 
   const handlePinCodeChange = (index: number, value: string) => {
     const newPinCode = [...pinCode];
-    newPinCode[index] = value;
+    const sanitizedValue = value.replace(/[^0-9]/g, ''); // Allow only numbers
+    newPinCode[index] = sanitizedValue;
 
     setPinCode(newPinCode);
 
-    if (value && index < 5 && pinInputRefs.current[index + 1]) {
-      pinInputRefs.current[index + 1].focus();
+    if (sanitizedValue && index < 5) {
+      const nextInput = pinInputRefs.current[index + 1];
+      if (nextInput) {
+        nextInput.focus();
+      }
     }
   };
 
   const handleBackspace = (index: number) => {
     const newPinCode = [...pinCode];
     if (!newPinCode[index] && index > 0) {
-      pinInputRefs.current[index - 1]?.focus();
+      const prevInput = pinInputRefs.current[index - 1];
+      if (prevInput) {
+        prevInput.focus();
+      }
       newPinCode[index - 1] = '';
     }
     setPinCode(newPinCode);
@@ -41,13 +49,32 @@ const CompanyFinancialDetailsPage: React.FC<AdditionalDetailsPageProps> = () => 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const enteredPinCode = pinCode.join('');
-    console.log('GSTIN:', gstin);
-    console.log('Address 1:', address1);
-    console.log('Address 2:', address2);
-    console.log('Country:', country);
-    console.log('State:', state);
-    console.log('PIN Code:', enteredPinCode);
-    // Handle form submission here (e.g., API call)
+
+    const newErrors: { gstin?: string; address1?: string; pinCode?: string } = {};
+
+    if (!gstin.trim()) {
+      newErrors.gstin = "GSTIN is required";
+    }
+
+    if (!address1.trim()) {
+      newErrors.address1 = "Address Line 1 is required";
+    }
+
+    if (enteredPinCode.length !== 6) {
+      newErrors.pinCode = "PIN Code must be 6 digits";
+    }
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length === 0) {
+      console.log('GSTIN:', gstin);
+      console.log('Address 1:', address1);
+      console.log('Address 2:', address2);
+      console.log('Country:', country);
+      console.log('State:', state);
+      console.log('PIN Code:', enteredPinCode);
+      // Handle form submission here (e.g., API call)
+    }
   };
 
   const indianStates = [
@@ -79,7 +106,7 @@ const CompanyFinancialDetailsPage: React.FC<AdditionalDetailsPageProps> = () => 
         <p>We need few more details for further process</p>
         <p>You are just few steps away!</p>
 
-        <form onSubmit={handleSubmit}>  
+        <form onSubmit={handleSubmit}>
           <div className="input-group">
             <label htmlFor="gstin">GSTIN NO</label>
             <input
@@ -90,6 +117,7 @@ const CompanyFinancialDetailsPage: React.FC<AdditionalDetailsPageProps> = () => 
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGstin(e.target.value)}
               required
             />
+            {errors.gstin && <p className="error-message">{errors.gstin}</p>}
           </div>
 
           <div className="input-group">
@@ -102,6 +130,7 @@ const CompanyFinancialDetailsPage: React.FC<AdditionalDetailsPageProps> = () => 
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAddress1(e.target.value)}
               required
             />
+            {errors.address1 && <p className="error-message">{errors.address1}</p>}
           </div>
 
           <div className="input-group">
@@ -155,6 +184,7 @@ const CompanyFinancialDetailsPage: React.FC<AdditionalDetailsPageProps> = () => 
                 />
               ))}
             </div>
+            {errors.pinCode && <p className="error-message">{errors.pinCode}</p>}
           </div>
 
           <div className="button-group">

@@ -32,7 +32,7 @@ export const verifyEmail = async (userId: string, otp: string) => {
 };
 
 export const registerPhoneNo = async (userId: string, phoneNumber: string) => {
-  const response = await axiosInstance.post("/api/user/verify-email", {
+  const response = await axiosInstance.post("/api/user/add-phone", {
     userId,
     phoneNumber,
   });
@@ -41,10 +41,47 @@ export const registerPhoneNo = async (userId: string, phoneNumber: string) => {
 };
 
 export const verifyPhoneNo = async (userId: string, otp: string) => {
-  const response = await axiosInstance.post("/api/user/verify-email", {
+  const response = await axiosInstance.post("/api/user/verify-phone", {
     userId,
     otp,
   });
 
   return response.data;
 };
+
+export const getAllSellers = async () => {
+  const token = localStorage.getItem('token');
+  const response = await axiosInstance.get("/api/user/get-all-sellers", {
+    headers :{
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  return response.data;
+};
+
+export const addSellers = async (companyIds :string[]) => {
+  const token = localStorage.getItem('token');
+  const response = await axiosInstance.post("/api/user/add-sellers",{
+    companyIds
+  }, {
+    headers :{
+      Authorization: `Bearer ${token}`
+    }
+  }, 
+  );
+
+  return response.data;
+};
+
+export const getUserPortfolio = async () => {
+  const token = localStorage.getItem('token');
+  const response = await axiosInstance.get("/api/user/get-user-portfolio",{
+    headers :{
+      Authorization: `Bearer ${token}`
+    }
+  }, 
+  );
+
+  return response.data;
+}

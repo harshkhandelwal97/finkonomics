@@ -1,14 +1,45 @@
-import React, { useState } from 'react';
-import '../styles/UserRegistration.css'
+import React, { useState, FormEvent } from 'react';
+import '../styles/UserRegistration.css';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../service/axiosInstance';
 
-const UserRegistrationPage = () => {
+// Service function (can be in a separate file)
+export const registerService = async (
+  fullname: string,
+  email: string,
+  password: string
+) => {
+  try {
+    const response = await axiosInstance.post("/api/user/register", {
+      fullname,
+      email,
+      password,
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Interface for validation errors
+interface Errors {
+  fullName?: string;
+  email?: string;
+  password?: string;
+  confirmPassword?: string;
+}
+
+const UserRegistrationPage: React.FC = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [errors, setErrors] = useState<Errors>({});
+  const [apiError, setApiError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -18,12 +49,57 @@ const UserRegistrationPage = () => {
     setConfirmPasswordVisible(!confirmPasswordVisible);
   };
 
-  const handleSubmit = (e:React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log('Full Name:', fullName);
-    console.log('Email Address:', email);
-    console.log('Password:', password);
-    // Handle form submission logic here (e.g., API call)
+    setApiError(null); // Clear previous API errors
+    const validationErrors = validateForm();
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length === 0) {
+      try {
+        const response = await registerService(fullName, email, password);
+        console.log("Registration successful:", response);
+        navigate(response.redirectTo); // Your redirection path
+      } catch (error: any) {
+        console.error("Registration failed:", error);
+
+        if (error.response && error.response.data && error.response.data.message) {
+          setApiError(error.response.data.message);
+        } else if (error.message) {
+          setApiError(error.message);
+        } else {
+          setApiError("An error occurred during registration.");
+        }
+      }
+    }
+  };
+
+  const validateForm = (): Errors => {
+    let errors: Errors = {};
+
+    if (!fullName.trim()) {
+      errors.fullName = 'Full Name is required';
+    }
+
+    if (!email.trim()) {
+      errors.email = 'Email is required';
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
+      errors.email = 'Invalid email format';
+    }
+
+    if (!password.trim()) {
+      errors.password = 'Password is required';
+    } else if (password.length < 8) {
+      errors.password = 'Password must be at least 8 characters';
+    }
+
+    if (!confirmPassword.trim()) {
+      errors.confirmPassword = 'Confirm Password cannot be blank';
+    } else if (password !== confirmPassword) {
+      errors.confirmPassword = 'Passwords do not match';
+    }
+
+    return errors;
   };
 
   return (
@@ -40,9 +116,9 @@ const UserRegistrationPage = () => {
               id="fullName"
               placeholder="Ex: John Doe"
               value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              required
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFullName(e.target.value)}
             />
+            {errors.fullName && <p className="error-message">{errors.fullName}</p>}
           </div>
 
           <div className="input-group">
@@ -52,9 +128,9 @@ const UserRegistrationPage = () => {
               id="email"
               placeholder="Ex: office@amazon.in"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
             />
+            {errors.email && <p className="error-message">{errors.email}</p>}
           </div>
 
           <div className="input-group">
@@ -65,8 +141,7 @@ const UserRegistrationPage = () => {
                 id="password"
                 placeholder="Ex: ••••••••••"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
               />
               <button
                 type="button"
@@ -76,6 +151,7 @@ const UserRegistrationPage = () => {
                 {passwordVisible ? <Visibility /> : <VisibilityOff />}
               </button>
             </div>
+            {errors.password && <p className="error-message">{errors.password}</p>}
           </div>
 
           <div className="input-group">
@@ -86,8 +162,7 @@ const UserRegistrationPage = () => {
                 id="confirmPassword"
                 placeholder="Ex: ••••••••••"
                 value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)}
               />
               <button
                 type="button"
@@ -97,7 +172,10 @@ const UserRegistrationPage = () => {
                 {confirmPasswordVisible ? <Visibility /> : <VisibilityOff />}
               </button>
             </div>
+            {errors.confirmPassword && <p className="error-message">{errors.confirmPassword}</p>}
           </div>
+
+          {apiError && <p className="error-message api-error">{apiError}</p>}
 
           <div className="btn-container">
             <button className="back-btn">Back</button>
@@ -106,13 +184,10 @@ const UserRegistrationPage = () => {
         </form>
 
         <div className="terms-conditions">
-          
-            By clicking on Register, you agree to our{' '}
-            <a href="/terms" className="terms-link">
-              Terms and Conditions
-            </a>
-
-          
+          By clicking on Register, you agree to our{' '}
+          <a href="/terms" className="terms-link">
+            Terms and Conditions
+          </a>
         </div>
       </div>
     </div>

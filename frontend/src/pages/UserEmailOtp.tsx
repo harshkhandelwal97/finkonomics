@@ -1,18 +1,30 @@
-import React, { useState, useEffect, useRef } from 'react';
-import "../styles/UserPhoneRegistration.css"; // Import the CSS file
-const UserOtpScreen: React.FC = () => {
-  const [otp, setOtp] = useState<string[]>(['', '', '', '', '', '']);
-  const [timeLeft, setTimeLeft] = useState<number>(60); // Timer starts at 60 seconds
-  const [isResendDisabled, setIsResendDisabled] = useState<boolean>(true);
-  const inputRefs = useRef<HTMLInputElement[]>([]); // Ref to store references to the input boxes
+import React, { useState, useEffect, useRef } from "react";
+import "../styles/UserPhoneRegistration.css";
+import { verifyEmail } from "../service/authService"; // Make sure the path is correct
+import { useSearchParams, useNavigate } from "react-router-dom"; // Import useNavigate
+
+const UserOtpScreen = () => {
+  const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]);
+  const [timeLeft, setTimeLeft] = useState(60);
+  const [isResendDisabled, setIsResendDisabled] = useState(true);
+  const inputRefs = useRef<HTMLInputElement[]>([]);
+  const [apiError, setApiError] = useState<string | null>(null);
+  const [searchParams] = useSearchParams();
+  const seedId = searchParams.get("seedId") || "";
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  console.log(seedId);
+  
 
   useEffect(() => {
+    let timerId: ReturnType<typeof setInterval>; // Define timerId with type
+
     if (timeLeft === 0) {
-      setIsResendDisabled(false); // Enable the Resend OTP button when timer reaches 0
+      setIsResendDisabled(false);
       return;
     }
 
-    const timerId = setInterval(() => {
+    timerId = setInterval(() => {
       setTimeLeft((prevTime) => prevTime - 1);
     }, 1000);
 
@@ -20,99 +32,89 @@ const UserOtpScreen: React.FC = () => {
   }, [timeLeft]);
 
   const handleResendOTP = () => {
-    setTimeLeft(60); // Reset timer to 60 seconds
-    setIsResendDisabled(true); // Disable the Resend OTP button again
-    // Add logic to resend OTP
+    setTimeLeft(60);
+    setIsResendDisabled(true);
+    // Add logic to resend OTP (e.g., call an API)
   };
 
-  const handleVerify = () => {
-    const fullOtp = otp.join('');
-    console.log('OTP entered:', fullOtp);
-    // Add logic to verify OTP
+  const handleVerify = async () => {
+    const fullOtp = otp.join("");
+    try {
+
+      console.log(seedId)
+      const res = await verifyEmail(seedId, fullOtp);
+      navigate(res.redirectTo); // Use navigate for redirection
+    } catch (error: any) {
+      if (error.response && error.response.data && error.response.data.message) {
+        setApiError(error.response.data.message);
+      } else if (error.message) {
+        setApiError(error.message);
+      } else {
+        setApiError("An error occurred during verification.");
+      }
+    }
   };
-
-  // const handleInputChange = (index: number, value: string) => {
-  //   const newOtp = [...otp];
-  //   newOtp[index] = value;
-  //   setOtp(newOtp);
-
-  //   // Auto-focus to the next input box
-  //   if (value && index < 5) {
-  //     inputRefs.current[index + 1].focus();
-  //   }
-  // };
 
   const handleInputChange = (index: number, value: string) => {
-    if (!/^\d?$/.test(value)) return; // Ensure only digits are entered
+    if (!/^\d?$/.test(value)) return;
 
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
 
-    // Auto-focus to the next input box
     if (value && index < 5) {
-      inputRefs.current[index + 1].focus();
+      inputRefs.current[index + 1]?.focus(); // Optional chaining to prevent errors
     }
   };
 
   const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
-    // Move focus to the previous input box on backspace
-    if (e.key === 'Backspace' && !otp[index] && index > 0) {
-      inputRefs.current[index - 1].focus();
+    if (e.key === "Backspace" && !otp[index] && index > 0) {
+      inputRefs.current[index - 1]?.focus(); // Optional chaining
     }
   };
 
   return (
-    <>
-      <div className="bg">
-        <h3>Check your Email for the OTP</h3>
-        <div className="form-container">
-          <div className="form-box">
-            {/* <h2 className="form-title">OTP Verification</h2> */}
-            <form>
-              <div className="otp-boxes">
-                {otp.map((digit, index) => (
-                  <input
-                    key={index}
-                    type="text"
-                    value={digit}
-                    onChange={(e) => handleInputChange(index, e.target.value)}
-                    onKeyDown={(e) => handleKeyDown(index, e)}
-                    maxLength={1}
-                    ref={(el) => (inputRefs.current[index] = el as HTMLInputElement)}
-                    className="otp-input"
-                  />
-                ))}
+    <div className="bg"> {/* Removed extra fragment */}
+      <h3>Check your Email for the OTP</h3>
+      <div className="form-container">
+        <div className="form-box">
+          <form>
+            <div className="otp-boxes">
+              {otp.map((digit, index) => (
+                <input
+                  key={index}
+                  type="text"
+                  value={digit}
+                  onChange={(e) => handleInputChange(index, e.target.value)}
+                  onKeyDown={(e) => handleKeyDown(index, e)}
+                  maxLength={1}
+                  ref={(el) => (inputRefs.current[index] = el as HTMLInputElement)}
+                  className="otp-input"
+                />
+              ))}
+            </div>
+            <div className="bottom-section">
+              <div className="timer">
+                {Math.floor(timeLeft / 60)}:
+                {("0" + (timeLeft % 60)).slice(-2)}
               </div>
-              <div className="bottom-section">
-                <div className="timer">
-                  {Math.floor(timeLeft / 60)}:{('0' + (timeLeft % 60)).slice(-2)}
-                </div>
-                <button
-                  onClick={handleResendOTP}
-                  disabled={isResendDisabled}
-                  className="resend-button"
-                >
-                  Resend OTP
-                </button>
-              </div>
-              <div className="form-buttons">
-                <button type="button" className="form-button back-button">
-                  Back
-                </button>
-                <button
-                  type="button"
-                  onClick={handleVerify}
-                  className="form-button next-button"
-                >
-                  Verify
-                </button>
-              </div>
-            </form>
-          </div>
+              <button onClick={handleResendOTP} disabled={isResendDisabled} className="resend-button">
+                Resend OTP
+              </button>
+            </div>
+            {apiError && <p className="error-message api-error">{apiError}</p>}
+            <div className="form-buttons">
+              <button type="button" className="form-button back-button">
+                Back
+              </button>
+              <button type="button" onClick={handleVerify} className="form-button next-button">
+                Verify
+              </button>
+            </div>
+          </form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

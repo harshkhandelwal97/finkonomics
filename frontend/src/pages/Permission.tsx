@@ -1,10 +1,41 @@
 import "../styles/companycard.css";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import Header1 from "../components/Header1";
-import Footer1 from "../components/footer";
 import CompanyCard from "../components/companycard";
+import { useState } from "react";
+import { addSellers } from "../service/authService";
+import { useNavigate } from "react-router-dom";
 
-const PermissionPage = () => {
+const PermissionPage: React.FC = () => {
+  const [selectedCompanies, setSelectedCompanies] = useState<string[]>([]);
+
+  // Function to update selected companies
+  const handleSelection = (id: string) => {
+    setSelectedCompanies((prev) => {
+      if (prev.includes(id)) {
+        // Remove the ID if already selected
+        return prev.filter((companyId) => companyId !== id);
+      } else {
+        // Add the ID if not already selected
+        return [...prev, id];
+      }
+    });
+  };
+
+  const navigate = useNavigate()
+
+  // Function to send selected IDs to the backend
+  const handleSubmit = async () => {
+    try {
+      console.log(selectedCompanies.toString())
+      const res = await addSellers(selectedCompanies);
+      navigate("/")
+
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <div className="landing-page-container">
       <Header1 />
@@ -25,13 +56,13 @@ const PermissionPage = () => {
         </div>
       </div>
       <div className="company-card-scroll-container">
-        <CompanyCard />
+        <CompanyCard onSelectionChange={handleSelection} />
       </div>
-      <Footer1/>
+      <button className="submit-button" onClick={handleSubmit}>
+        Submit
+      </button>
     </div>
   );
 };
 
 export default PermissionPage;
-
-

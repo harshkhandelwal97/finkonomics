@@ -1,19 +1,15 @@
 import "./App.css";
 import CompanyCard from "./components/companycard";
-import landingPage from "./pages/LandingPage";
+// import landingPage from "./pages/LandingPage";
 import Permission from "./pages/Permission";
 import HistoryPage from "./pages/HistoryPage";
 import CompanyLoginPage from "./pages/CompanyLoginPage";
 import PhoneNumberScreen from "./pages/UserPhoneRegistration";
-import OTPScreenPhone from "./pages/UserPhoneOtp";
-import OTPScreen from "./pages/UserEmailOtp";
+import OTPScreenPhone from "./pages/UserPhoneOtp"
 import { Route, Routes } from "react-router-dom";
-import { Homepage } from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage";
 import Navbar from "./components/Navbar";
 // import UserRegistration from "./pages/UserRegistration";
 import UserRegistrationPage from "./pages/UserRegistration";
-import UserOtpScreen from "./pages/UserEmailOtp";
 import Header1 from "./components/Header1";
 import CompanyRegistrationPage from "./pages/CompanyRegistration";
 import AdditionalDetailsPage from "./pages/CompanyFinancialRegistration";
@@ -21,6 +17,9 @@ import CompanyFinancialDetailsPage from "./pages/CompanyFinancialRegistration";
 import CompanyBankDetails from "./pages/CompanyBankDetails";
 import { NotificationsPage } from "./pages/NotificationPage";
 import { PaymentReceipt } from "./pages/paymentReceipt";
+import UserOtpScreen from "./pages/UserEmailOtp";
+import UserLoginPage from "./pages/LoginPage";
+import {Homepage } from "./pages/HomePage";
 function App() {
   return (
     <div>
@@ -30,11 +29,7 @@ function App() {
           element={
             <>
               <Header1 />
-              <Homepage
-                totalPoints={9875}
-                totalValue="₹6325"
-                savedAmount="₹5467"
-              />
+              <Homepage />
             
             </>
           }
@@ -44,11 +39,11 @@ function App() {
           element={
             <>
               <Permission />
-              <Navbar />
+              {/* <Navbar /> */}
             </>
           }
         />
-        <Route path="/user/login" element={<LoginPage />} />
+        <Route path="/user/login" element={<UserLoginPage />} />
 
         <Route
           path="/history"
@@ -87,6 +82,18 @@ function App() {
         <Route path="/company/register" element={<CompanyRegistrationPage />} />
         <Route path="/company/register/financial" element={<CompanyFinancialDetailsPage />} />
         <Route path="/company/register/financial/bank" element={<CompanyBankDetails />} />
+        <Route path="/company/login" element={<CompanyLoginPage />} />
+        {/* <Route
+  path="/homepage"
+  element={
+    <>
+      <Header1 />
+      <Homepage totalPoints={0} totalValue="0
+      " savedAmount="₹5467" />
+    </>
+  }
+/> */}
+
       </Routes>
     </div>
   );
