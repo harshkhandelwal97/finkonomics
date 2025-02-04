@@ -78,10 +78,15 @@ const UserLoginPage = () => {
 
     try {
       const res = await loginService(email, password, mobileNumber);
-      localStorage.setItem('token', res.token)
-      localStorage.setItem('name', res.name)
-      localStorage.setItem('id', res.id)
-      navigate('/')
+      if (loginMethod === 'email') {
+        localStorage.setItem('token', res.token)
+        localStorage.setItem('name', res.name)
+        localStorage.setItem('id', res.id)
+        navigate('/')
+      }else if(loginMethod === 'mobile'){
+        navigate(res.redirectTo)
+      }
+
     } catch (error) {
       console.log(error)
     }
