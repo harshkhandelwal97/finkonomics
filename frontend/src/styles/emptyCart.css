@@ -1,0 +1,182 @@
+.rewardsPage {
+  background-color: #fff;
+  display: flex;
+  max-width: 480px;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  padding: 22px 0;
+  font-family: Poppins, sans-serif;
+}
+
+.userHeader {
+  width: 100%;
+  max-width: 372px;
+  color: #404040;
+}
+
+.userName {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.userId {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.rewardsCard {
+  border-radius: 16px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(51, 77, 7, 0.25);
+  width: 100%;
+  max-width: 372px;
+  padding: 24px 16px;
+  margin-top: 24px;
+  border: 1px solid #bacd9a;
+}
+
+.rewardsPrompt {
+  color: #368455;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.pointsSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  gap: 24px;
+}
+
+.pointsContainer {
+  flex: 1;
+}
+
+.pointsValue {
+  font-size: 24px;
+  font-weight: 600;
+  color: #368455;
+}
+
+.pointsLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #404040;
+}
+
+.infoIcon {
+  border-radius: 8px;
+  height: 16px;
+  width: 16px;
+  font-size: 12px;
+  text-align: center;
+  border: 1px solid #404040;
+  line-height: 14px;
+}
+
+.divider {
+  width: 1px;
+  background-color: #d9d9d9;
+  align-self: stretch;
+}
+
+.actionButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  gap: 40px;
+}
+
+.actionButton {
+  flex: 1;
+  border-radius: 8px;
+  padding: 8px 50px 8px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  border: 1px solid;
+  cursor: pointer;
+}
+
+.actionButton.primary {
+  background-color: #a9a9a9;
+  color: #fffad8;
+  border-color: #a9a9a9;
+  margin-right: 40px;
+}
+
+.actionButton.secondary {
+  background-color: transparent;
+  color: #368455;
+  border-color: #368455;
+  width: 100%;
+}
+
+.permissionsSection {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 372px;
+  margin-top: 9px;
+  font-size: 12px;
+  color: #404040;
+}
+
+.permissionsText {
+  font-weight: 400;
+  margin-top: 10px;
+}
+
+.permissionsLink {
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.infoSection {
+  width: 100%;
+  max-width: 342px;
+  margin-top: 4%;
+  justify-content: center;
+}
+
+.infoTitle {
+  font-size: 16px;
+  font-weight: 500;
+  color: #404040;
+}
+
+.infoDescription {
+  font-size: 14px;
+  font-weight: 400;
+  color: #404040;
+  margin-top: 8px;
+}
+
+
+.rewardsPage .iconContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.rewardsPage .inlineSvg {
+  width: 40%px;
+  height: 40%px;
+  margin-right: 0.5rem;
+}
+
+.rewardsPage .svgImage {
+  /* width: 80%; */
+  height: auto;
+  margin-top: 1rem;
+}
+
+.rewardsPage .iconLabel {
+  font-size: 1.2rem;
+  font-weight: bold;
+}

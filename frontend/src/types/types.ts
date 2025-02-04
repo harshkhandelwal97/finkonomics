@@ -38,3 +38,36 @@ export interface PointsSummaryProps {
     time: string;
     merchant: string;
   }
+
+  export interface CompanyCardProps {
+    onSelectionChange: (id: string) => void;
+    // userPortFolio: UserPortfolio[];
+
+  }
+  
+  export interface SellersDetails {
+    id: string;
+    legalName: string;
+    logo: string;
+    coinName: string;
+    coinLogo: string;
+    checked: boolean;
+  }
+  
+
+  export interface UserPortfolio{
+    id: string;
+    logo: string;
+    sellerId: string;
+    coinName: string;
+    legalName: string;
+    currentExchangeRatio : string;
+    coinsAvailable: string;
+    companyPointsLogo: string ;
+  }
+  export interface ActionButtonProps {
+    label: string;
+    disabled?: boolean;
+    variant: "primary" | "secondary";
+    onClick?: () => void;
+  }
