@@ -5,7 +5,7 @@ import { RewardPointsCard } from "../components/RewardPointCard";
 import { RewardPointsData } from "../types/types";
 import Header1 from "../components/Header1";
 import GetAppIcon from "@mui/icons-material/GetApp";
-import ShareIcon from "@mui/icons-material/Share";
+import ShareIcon from "@mui/icons-material/Share"; 
 
 const rewardPointsData: RewardPointsData[] = [
   {
