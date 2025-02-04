@@ -582,9 +582,9 @@ router.put('/update-profile', authMiddleware, async (req, res) => {
   }
 });
 
-// User can see all the register company on finkonomics
+// User can see all the register seller on finkonomics with the checked mark
 
-router.get('/get-all-sellers', authMiddleware, async (req, res) => {
+router.get('/get-all-sellers-user-register', authMiddleware, async (req, res) => {
   try {
     // Extract query parameters
     const { search, natureOfBusiness, page = 1, limit = 100 } = req.query;
@@ -661,6 +661,23 @@ router.get('/get-all-sellers', authMiddleware, async (req, res) => {
   }
 });
 
+// user can see all the register seller 
+
+router.get('/get-all-sellers', authMiddleware, async (req, res) => {
+  try {
+    const query = `
+      SELECT id, "legalName", logo, "natureOfBusiness"
+      FROM "sellersInfo"
+      WHERE "isDeleted" = FALSE
+    `;
+
+    const { rows } = await pool.query(query);
+    res.status(200).json({ success: true, sellers: rows });
+  } catch (error) {
+    console.error('Error fetching sellers:', error);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
+});
 // Add Companies to User's Portfolio
 
 router.post('/add-sellers', authMiddleware, async (req, res) => {
@@ -793,6 +810,43 @@ router.get("/testing", async (req, res) => {
   }
 })
 
+// this is the route for the user whem all the amount is paid by finkonomics
+
+router.post("/transaction/by-finko", authMiddleware, async (req, res) => {
+  const { transactionId, sellerTransferredToId, totalAmount, fromSellers } = req.body;
+  const userId = req.user.id;
+
+  try {
+    await pool.query("BEGIN"); // Start transaction
+
+    // Step 1: Insert into transactionsInfo
+    const insertTransactionQuery = `
+      INSERT INTO "transactionsInfo" ("transactionId", "userId", "sellerTransferredToId", "totalAmount")
+      VALUES ($1, $2, $3, $4)
+      RETURNING *;
+    `;
+    await pool.query(insertTransactionQuery, [transactionId, userId, sellerTransferredToId, totalAmount]);
+
+    // Step 2: Insert into fromSellerSettlement
+    const insertSettlementQuery = `
+      INSERT INTO "fromSellerSettlement" ("transactionId", "amount", "points", "sellerId")
+      VALUES ($1, $2, $3, $4);
+    `;
+
+    for (const seller of fromSellers) {
+      const { sellerId, amount, points } = seller;
+      await pool.query(insertSettlementQuery, [transactionId, amount, points, sellerId]);
+    }
+
+    await pool.query("COMMIT"); // Commit transaction
+    res.status(201).json({ message: "Transaction recorded successfully", redirectTo: `/payment/success?tid=${transactionId}` });
+
+  } catch (error) {
+    await pool.query("ROLLBACK"); // Rollback transaction on error
+    console.error("Error processing transaction:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 async function verifyPhoneOtp(user, id, otp) {
 
@@ -814,7 +868,6 @@ async function verifyPhoneOtp(user, id, otp) {
     [id]
   );
 }
-
 
 async function sendOtpToPhone(phoneNumber) {
 
