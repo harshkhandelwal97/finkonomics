@@ -192,7 +192,7 @@ router.post('/verify-phone', async (req, res) => {
         // Generate a JWT token or set a cookie for the seller
         const token = jwt.sign({ id: seller.rows[0].id, entity: "seller" }, process.env.JWT_AUTH_SECRET, { expiresIn: '7d' });
 
-        res.status(200).json({ message: 'Phone number verified successfully', token, redirectTo: "/registration/other-details" });
+        res.status(200).json({ message: 'Phone number verified successfully', token, redirectTo: "/registration/financial" });
     } catch (err) {
         console.error(err.message);
         res.status(500).json({ message: err.message || 'Server error' });
