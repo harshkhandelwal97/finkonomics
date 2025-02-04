@@ -4,7 +4,8 @@
   "description": "this is server code for finkonomics that revolutionize the rewards system ",
   "main": "server.js",
   "scripts": {
-    "test": "start"
+    "test": "start",
+    "start": "node index.js"
   },
   "keywords": [
     "finkomonics",
