@@ -1,0 +1,17 @@
+INSERT INTO "bankAccountType" ("accountType") VALUES
+('Savings Account'),
+('Current Account'),
+('Fixed Deposit Account'),
+('Recurring Deposit Account'),
+('NRE Account'),
+('NRO Account'),
+('FCNR Account'),
+('Salary Account'),
+('Demat Account'),
+('Joint Account'),
+('Senior Citizens Account'),
+('Minor Account'),
+('Zero Balance Account'),
+('Women’s Account'),
+('Business Account'),
+('Payroll Account');
