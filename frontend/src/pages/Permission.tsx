@@ -2,7 +2,7 @@ import "../styles/companycard.css";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import Header1 from "../components/Header1";
 import CompanyCard from "../components/companycard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addSellers } from "../service/authService";
 import { useNavigate } from "react-router-dom";
 
@@ -34,6 +34,13 @@ const PermissionPage: React.FC = () => {
       console.error("Error:", error);
     }
   };
+
+    const token = localStorage.getItem('token') || ""
+    useEffect(() => {
+      if (!token || token === "") {
+        navigate("/login")
+      }
+    })
 
   return (
     <div className="landing-page-container">

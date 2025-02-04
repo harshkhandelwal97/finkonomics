@@ -85,6 +85,10 @@ const UserRegistrationPage: React.FC = () => {
     return errors;
   };
 
+  const handleBack = () => {
+    navigate("/login")
+  }
+
   return (
     <div className="register-container">
       <div className="register-box">
@@ -164,7 +168,7 @@ const UserRegistrationPage: React.FC = () => {
           {apiError && <p className="error-message api-error">{apiError}</p>}
 
           <div className="btn-container">
-            <button className="back-btn">Back</button>
+            <button className="back-btn" onClick={handleBack}>Back</button>
             <button type="submit" className="next-btn">Next</button>
           </div>
         </form>

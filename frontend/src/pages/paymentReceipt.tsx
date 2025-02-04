@@ -86,6 +86,15 @@ export const PaymentReceipt: React.FC = () => {
     }
   }
 
+  const token = localStorage.getItem('token') || ""
+
+
+  useEffect(() => {
+    if (!token || token === "") {
+      navigate("/login")
+    }
+  })
+
   return (
     <div>
       <Header1 />

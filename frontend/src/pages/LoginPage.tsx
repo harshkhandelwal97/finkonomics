@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../styles/login.css"; // Import CSS file for styling
 import logo from  "../assets/logo.svg";
+import { Link } from "react-router-dom";
 const UserLoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -145,12 +146,12 @@ const UserLoginPage = () => {
           </button>
         </form>
 
-        <a href="/forgot_password" className="forgot-password">
+        <Link to={"/forgot_password"} className="forgot-password">
           Forgot your Password?
-        </a>
+        </Link>
 
         <p className="register-link">
-          New to Finkonomics? <a href="user/register">Register</a>
+          New to Finkonomics? <Link to={"/user/register"}>Register</Link>
         </p>
       </div>
     </div>

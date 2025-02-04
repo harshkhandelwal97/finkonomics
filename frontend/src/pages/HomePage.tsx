@@ -5,12 +5,15 @@ import CompanyCardHome from "../components/companycardHome";
 import FilterSortButtons from "../components/FilterSortButtons";
 import { getUserPortfolio } from "../service/authService";
 import { EmptyCart } from "../components/EmptyCart";
+import { useNavigate } from "react-router-dom";
 // import "../styles/emptyCart.css"
 // import { ActionButton } from "../components/ActionButton";
 
 export const Homepage = () => {
+
+  const token = localStorage.getItem('token') || ""
   const [userPortfolio, setUserPortfolio] = useState<UserPortfolio[]>([]);
-  console.log(userPortfolio);
+  const navigate = useNavigate()
 
   const fetchUserPortfolio = async () => {
     try {
@@ -42,6 +45,12 @@ export const Homepage = () => {
       0
     )
   );
+
+  useEffect(() => {
+    if(!token || token === ""){
+      navigate("/login")
+    }
+  })
 
   return (
     <div className="home-main-page">

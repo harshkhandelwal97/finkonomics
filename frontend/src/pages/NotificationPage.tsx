@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/notification.css";
 import { NotificationCard } from "../components/NotificatonCard";
 import { Tab } from "../components/NotificationTab";
 import { NotificationItem } from "../types/types";
 import Header1 from "../components/Header1";
+import { useNavigate } from "react-router-dom";
 // import Footer1 from "../components/footer";
 
 const notifications: NotificationItem[] = [
@@ -38,6 +39,16 @@ const notifications: NotificationItem[] = [
 
 export const NotificationsPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState("Recent");
+
+  const token = localStorage.getItem('token') || ""
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    if (!token || token === "") {
+      navigate("/login")
+    }
+  })
 
   return (
     <div className="notificationPage">

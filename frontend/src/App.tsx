@@ -46,7 +46,7 @@ function App() {
             </>
           }
         />
-        <Route path="/user/login" element={<UserLoginPage />} />
+        <Route path="/login" element={<UserLoginPage />} />
 
         <Route
           path="/history"

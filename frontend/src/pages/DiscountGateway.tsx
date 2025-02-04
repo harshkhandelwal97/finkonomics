@@ -67,6 +67,16 @@ export default function DiscountGateway() {
         navigate(`/payment/receipt?amount=${amount}&lg=${lg}`)
     };
 
+
+    const token = localStorage.getItem('token') || ""
+  
+  
+    useEffect(() => {
+      if (!token || token === "") {
+        navigate("/login")
+      }
+    })
+
     return (
         <div className="discount-gateway">
             <Header1 />
