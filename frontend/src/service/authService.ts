@@ -1,10 +1,11 @@
 import { FinancialDataTypes } from "@/types/types";
 import axiosInstance from "./axiosInstance";
 
-export const loginService = async (email: string, password: string) => {
-  const response = await axiosInstance.post("/auth/login", {
+export const loginService = async (email: string, password: string, phoneNumber: string) => {
+  const response = await axiosInstance.post("/api/user/login", {
     email,
     password,
+    phoneNumber
   });
   return response.data;
 };

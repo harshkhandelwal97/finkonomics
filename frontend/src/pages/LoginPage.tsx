@@ -2,6 +2,7 @@ import { useState } from "react";
 import "../styles/login.css"; // Import CSS file for styling
 import logo from "../assets/logo.svg";
 import { Link } from "react-router-dom";
+import { loginService } from "../service/authService";
 
 const UserLoginPage = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ const UserLoginPage = () => {
   });
   const [loginMethod, setLoginMethod] = useState<"email" | "mobile">("email"); // Track login method
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Reset errors
@@ -73,6 +74,15 @@ const UserLoginPage = () => {
       }
       // Proceed with form submission (e.g., API call) here
     }
+
+    try {
+      const res = await loginService(email, password, mobileNumber);
+      localStorage.setItem('token', res.token)
+      localStorage.setItem('name', res.name)
+      localStorage.setItem('id', res.id)
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   return (
@@ -84,7 +94,7 @@ const UserLoginPage = () => {
         <h1>Welcome to Finkonomics</h1>
         <p>You are just one step away!</p>
 
-    
+
         <div className="login-method-toggle">
           <div className="btn">
             <button
