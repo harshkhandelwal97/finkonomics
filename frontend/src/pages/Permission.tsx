@@ -3,12 +3,14 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import Header1 from "../components/Header1";
 import CompanyCard from "../components/companycard";
 import { useEffect, useState } from "react";
-import { addSellers } from "../service/authService";
-import { useNavigate } from "react-router-dom";
+import { addSellers, updateUserPorfolio } from "../service/authService";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import NavigationBar from "./Navigationbar";
 import TuneIcon from '@mui/icons-material/Tune';
 const PermissionPage: React.FC = () => {
   const [selectedCompanies, setSelectedCompanies] = useState<string[]>([]);
+  const [searchParams] = useSearchParams();
+  const medium = searchParams.get('utm_source') || ""
 
   // Function to update selected companies
   const handleSelection = (id: string) => {
@@ -28,20 +30,23 @@ const PermissionPage: React.FC = () => {
   // Function to send selected IDs to the backend
   const handleSubmit = async () => {
     try {
-      console.log(selectedCompanies.toString());
-      await addSellers(selectedCompanies);
+      if (medium === "registration") {
+        await addSellers(selectedCompanies);
+      } else {
+        await updateUserPorfolio(selectedCompanies)
+      }
       navigate("/");
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
-    const token = localStorage.getItem('token') || ""
-    useEffect(() => {
-      if (!token || token === "") {
-        navigate("/login")
-      }
-    })
+  const token = localStorage.getItem('token') || ""
+  useEffect(() => {
+    if (!token || token === "") {
+      navigate("/login")
+    }
+  })
 
   return (
     <div className="landing-page-container">
