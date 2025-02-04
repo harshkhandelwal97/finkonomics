@@ -1,8 +1,11 @@
 import CompanyCard from "../components/companycardWithPoints";
+import TuneIcon from '@mui/icons-material/Tune';
 import Header1 from "../components/Header1";
 import Footer1 from "../components/footer";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import '../styles/HistoryPage.css'
+import { Class } from "@mui/icons-material";
+import { ClassNames } from "@emotion/react";
 const HistoryPage = () => {
   return (
     <div className="landing-page-container">
@@ -20,10 +23,14 @@ const HistoryPage = () => {
           />
           <SearchOutlinedIcon />
         </div>
-        <button className="filter-button">Filter</button>
+        <button className="filter-button1"> <TuneIcon/> 
+        <div className="filter-text">
+        Filter
+        </div>
+        </button>
       </div>
     </div>
-    <div className="company-card-scroll-container">
+    <div className="company-card-scroll-container1">
       <CompanyCard />
     </div>
     <Footer1/>
