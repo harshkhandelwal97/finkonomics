@@ -10,6 +10,15 @@ export const loginService = async (email: string, password: string, phoneNumber:
   return response.data;
 };
 
+export const verifyLoginOtp = async (userId: string, otp: string) => {
+  const response = await axiosInstance.post("/api/user/verify-login-otp", {
+    userId,
+    otp,
+  });
+
+  return response.data;
+};
+
 export const registerService = async (
   fullname: string,
   email: string,
