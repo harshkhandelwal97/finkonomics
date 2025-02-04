@@ -42,7 +42,7 @@ function App() {
           element={
             <>
               <Permission />
-              <NavigationBar />
+              {/* <NavigationBar /> */}
             </>
           }
         />
