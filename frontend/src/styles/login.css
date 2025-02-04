@@ -37,9 +37,6 @@ p {
   text-align: left;
   margin-bottom: 15px;
 }
-.mobile-number{
-  border: red
-}
 
 .mobile-input-group label {
   font-size: 14px;
@@ -50,28 +47,45 @@ p {
 
 .mobile-wrapper {
   display: flex;
+  justify-content: center;
   align-items: center;
-  margin-right: 1px;
 }
+
 
 .country-code {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px 0 0 5px;
-  background: #f9f9f9;
-  font-size: 14px;
-  margin-right: 1%;
-  height: 40px;
+  padding: 6px 10px;
+  font-size: 14px; /* Smaller font size */
+  border-radius: 4px; /* Rounded corners */
+  border: 1px solid #ccc; /* Light border color */
+  width:100%; /* Adjust width to make it smaller */
+  background-color: #f9f9f9; /* Light background color */
+  /* transition: all 0.3s ease; Smooth transition for interaction */
 }
 
+.country-code:focus {
+  outline: none;
+  border-color: #007bff; /* Highlight border color on focus */
+}
+
+.country-code option {
+  padding: 6px 8px;
+  font-size: 14px;
+}
 .mobile-number input {
-  flex-grow: 1;
-  padding: 10px;
-  border: 1px solid #ad2020;
-  border-left: none;
+  /* flex-grow: 1; */
+  /* padding: 10px; */
+  /* border: 3px solid #12090c; */
+  /* border-left: none; */
   border-radius: 0 5px 5px 0;
-  height: 60px;
+  /* height: 60px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: auto;
   box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+   border: 1px solid #CACACA;
 }
 
 /* Separator styling between sections */
@@ -98,7 +112,16 @@ p {
 .input-group {
   text-align: left;
   margin-bottom: 15px;
+  /* border: 2px solid red; */
 }
+
+.input-group-mobile {
+  text-align: left;
+  margin-bottom: 15px;
+  display: flex;
+  /* border: 2px solid rgb(0, 255, 13); */
+}
+
 
 .input-group label {
   font-size: 14px;
