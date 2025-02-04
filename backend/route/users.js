@@ -285,7 +285,7 @@ router.post('/login', async (req, res) => {
           [otp, tokenExpires, userId]
         );
 
-        return res.status(200).json({ message: 'OTP sent to your phone number', redirectTo: `/login/phone-otp/verification?seedid=${userId}` });
+        return res.status(200).json({ message: 'OTP sent to your phone number', redirectTo: `/login/phone-otp/verification?seedId=${userId}` });
       }
     }
 
@@ -368,10 +368,10 @@ router.post('/verify-login-otp', async (req, res) => {
     //   maxAge: 7 * 24 * 60 * 60 * 1000,
     // });
 
-    return res.json({ message: 'Login successful', token });
+    return res.json({ message: 'Login successful', token, id: userId, name:  user.rows[0].fullname });
   } catch (error) {
-    console.error(err.message);
-    res.status(500).json({ message: err.message || 'Server error' });
+    console.error(error.message);
+    res.status(500).json({ message: error.message || 'Server error' });
   }
 })
 
