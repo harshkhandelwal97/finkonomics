@@ -127,11 +127,11 @@ router.post('/add-phone', async (req, res) => {
     const tokenExpires = new Date(Date.now() + 300000); // 5 minutes
 
     // Send OTP via Twilio SMS
-    await client.messages.create({
-      body: `Your verification code for Finkonomics is: ${otp}`,
-      from: twilioPhoneNumber,
-      to: phoneNumber
-    });
+    // await client.messages.create({
+    //   body: `Your verification code for Finkonomics is: ${otp}`,
+    //   from: twilioPhoneNumber,
+    //   to: phoneNumber
+    // });
 
     // Store the OTP in the database
     await pool.query(
@@ -155,7 +155,7 @@ router.post('/verify-phone', async (req, res) => {
     const user = await pool.query('SELECT * FROM "users" WHERE id = $1', [userId]);
 
     // Check if the user exists
-    await verifyPhoneOtp(user, userId, otp);
+    // await verifyPhoneOtp(user, userId, otp);
 
     // Update the step to indicate that phone verification is complete
     await pool.query(
@@ -237,11 +237,11 @@ router.get('/resend-phone-otp', async (req, res) => {
       console.log({ location: '/resend-phone-otp', otp });
 
       // Send OTP via Twilio SMS
-      await client.messages.create({
-          body: `Your new verification code is: ${otp}`,
-          from: twilioPhoneNumber,
-          to: phoneNumber
-      });
+      // await client.messages.create({
+      //     body: `Your new verification code is: ${otp}`,
+      //     from: twilioPhoneNumber,
+      //     to: phoneNumber
+      // });
 
       // Update the OTP in the database
       await pool.query(
@@ -348,7 +348,7 @@ router.post('/verify-login-otp', async (req, res) => {
 
     const user = await pool.query('SELECT * FROM "users" WHERE id = $1', [userId]);
 
-    await verifyPhoneOtp(user, userId, otp)
+    // await verifyPhoneOtp(user, userId, otp)
 
     if (user.rows[0].step == 3) {
       await pool.query(
