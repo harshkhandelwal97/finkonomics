@@ -169,7 +169,7 @@ router.post('/verify-phone', async (req, res) => {
     res.status(200).json({ message: 'Phone number verified successfully', token });
   } catch (err) {
     console.error(err.message);
-    res.status(500).json({ message: err.message || 'Server error' });
+    res.status(500).json({ message: err.message || 'Server error', id: userId, name:  user.rows[0].name });
   }
 });
 
@@ -333,7 +333,7 @@ router.post('/login', async (req, res) => {
     //   maxAge: 7 * 24 * 60 * 60 * 1000,
     // });
 
-    res.json({ message: 'Login successful', token });
+    res.json({ message: 'Login successful', token, id: id, name:  user.rows[0].name});
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ message: 'Server error' });
