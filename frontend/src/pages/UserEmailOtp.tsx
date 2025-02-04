@@ -15,7 +15,6 @@ const UserOtpScreen = () => {
   const seedId = searchParams.get("seedId") || "";
   const navigate = useNavigate(); // Initialize useNavigate
 
-  console.log(seedId);
   
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../styles/login.css"; // Import CSS file for styling
 import logo from "../assets/logo.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginService } from "../service/authService";
 
 const UserLoginPage = () => {
@@ -15,6 +15,7 @@ const UserLoginPage = () => {
     mobileNumber: "",
   });
   const [loginMethod, setLoginMethod] = useState<"email" | "mobile">("email"); // Track login method
+  const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,6 +81,7 @@ const UserLoginPage = () => {
       localStorage.setItem('token', res.token)
       localStorage.setItem('name', res.name)
       localStorage.setItem('id', res.id)
+      navigate('/')
     } catch (error) {
       console.log(error)
     }
