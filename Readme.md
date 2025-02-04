@@ -23,6 +23,16 @@ Finkonomics is a unified reward system built with **React.js** that allows users
 - A live demo showcasing the core functionality of the app.
 - [https://finkonomics.vercel.app](#)
 
+### 5. Design for the entire
+- A design (ui/ux) showcasing the core functionality of the app.
+- [https://www.figma.com/design/bbv7PmSOey1voFLFFxC4C1/Finkonomics_NPCI?node-id=0-1&t=PxfJVDuGkOKhI8cO-1](#)
+
+### 6. Entire Dashbord for Finkonomics Partners
+- We have dedicated plateform for our partners.
+
+### 6. [Important] 
+- Use phone for better experience. 
+
 ---
 
 ## Getting Started
