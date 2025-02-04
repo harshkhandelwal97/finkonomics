@@ -4,8 +4,12 @@ const router = require("express").Router();
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const twilio = require('twilio');
 
-// const twilio = require('twilio'); 
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
+const client = twilio(accountSid, authToken);
 
 const authMiddleware = require("../middleware/auth");
 const pool = require("../database/connection");
@@ -109,7 +113,7 @@ router.post('/add-phone', async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Check if the phone number is already registered except the unverified phone number with that particular id
+    // Check if the phone number is already registered except unverified ones
     const phoneExists = await pool.query(
       'SELECT * FROM users WHERE "phoneNumber" = $1 AND step != 3',
       [phoneNumber]
@@ -117,29 +121,31 @@ router.post('/add-phone', async (req, res) => {
     if (phoneExists.rows.length > 0) {
       return res.status(400).json({ message: 'Phone number already registered' });
     }
-    // Update the user's phone number
-    await pool.query(
-      'UPDATE users SET "phoneNumber" = $1 WHERE id = $2',
-      [phoneNumber, userId]
-    );
 
-    // Send OTP to the phone number (you can use a service like Twilio for this)
+    // Generate OTP
     const otp = crypto.randomInt(100000, 999999).toString();
     const tokenExpires = new Date(Date.now() + 300000); // 5 minutes
 
-    console.log({ location: "/verify-phone", otp })
+    // Send OTP via Twilio SMS
+    await client.messages.create({
+      body: `Your verification code for Finkonomics is: ${otp}`,
+      from: twilioPhoneNumber,
+      to: phoneNumber
+    });
 
     // Store the OTP in the database
     await pool.query(
-      'UPDATE users SET "verificationToken" = $1, "verificationTokenExpires" = $2, step = 3 WHERE id = $3',
-      [otp, tokenExpires, userId]
+      'UPDATE users SET "phoneNumber" = $1, "verificationToken" = $2, "verificationTokenExpires" = $3, step = 3 WHERE id = $4',
+      [phoneNumber, otp, tokenExpires, userId]
     );
+
     return res.json({ message: "OTP sent to your phone number", redirectTo: `/register/phone-otp/verification?seedId=${user.rows[0].id}&step=3` });
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ message: 'Server error' });
   }
 });
+
 
 router.post('/verify-phone', async (req, res) => {
   const { userId, otp } = req.body;
@@ -164,6 +170,89 @@ router.post('/verify-phone', async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ message: err.message || 'Server error' });
+  }
+});
+
+// router for resend the otp at email 
+router.get("/resend-email-otp", async (req, res) => {
+  try {
+      const { email } = req.query;
+
+      if (!email) {
+          return res.status(400).json({ message: "Email is required" });
+      }
+
+      // Check if the email exists in the database
+      const user = await pool.query('SELECT * FROM "users" WHERE email = $1', [email]);
+
+      if (user.rows.length === 0) {
+          return res.status(404).json({ message: "Email not found" });
+      }
+
+      // Generate a new OTP
+      const otp = crypto.randomInt(100000, 999999).toString();
+      const tokenExpires = new Date(Date.now() + 300000); // 5 minutes
+
+      console.log({ location: "/resend-email-otp", otp });
+
+      // Send OTP via email
+      const subject = "Resend OTP - Verify Your Email";
+      const text = `Hello, here is your new OTP.`;
+      const html = `<p>Hello, your new OTP is <strong>${otp}</strong></p>`;
+
+      await sendMail(email, subject, text, html);
+
+      // Update the OTP in the database
+      await pool.query(
+          'UPDATE "users" SET "verificationToken" = $1, "verificationTokenExpires" = $2 WHERE email = $3',
+          [otp, tokenExpires, email]
+      );
+
+      res.json({ message: "New OTP has been sent to your registered email" });
+  } catch (error) {
+      console.error(error.message);
+      res.status(500).json({ message: "Server error" });
+  }
+});
+
+router.get('/resend-phone-otp', async (req, res) => {
+  try {
+      const { phoneNumber } = req.query;
+
+      if (!phoneNumber) {
+          return res.status(400).json({ message: 'Phone number is required' });
+      }
+
+      // Check if the phone number exists in the database
+      const user = await pool.query('SELECT * FROM "users" WHERE "phoneNumber" = $1', [phoneNumber]);
+
+      if (user.rows.length === 0) {
+          return res.status(404).json({ message: 'Phone number not found' });
+      }
+
+      // Generate a new OTP
+      const otp = crypto.randomInt(100000, 999999).toString();
+      const tokenExpires = new Date(Date.now() + 300000); // 5 minutes
+
+      console.log({ location: '/resend-phone-otp', otp });
+
+      // Send OTP via Twilio SMS
+      await client.messages.create({
+          body: `Your new verification code is: ${otp}`,
+          from: twilioPhoneNumber,
+          to: phoneNumber
+      });
+
+      // Update the OTP in the database
+      await pool.query(
+          'UPDATE users SET "verificationToken" = $1, "verificationTokenExpires" = $2 WHERE "phoneNumber" = $3',
+          [otp, tokenExpires, phoneNumber]
+      );
+
+      res.json({ message: 'New OTP has been sent to your registered phone number' });
+  } catch (error) {
+      console.error(error.message);
+      res.status(500).json({ message: 'Server error' });
   }
 });
 

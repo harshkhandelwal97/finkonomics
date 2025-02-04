@@ -17,7 +17,12 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 // const nodemailer = require('nodemailer');
-// const twilio = require('twilio'); 
+const twilio = require('twilio');
+
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
+const client = twilio(accountSid, authToken);
 
 const authMiddleware = require("../middleware/auth");
 const pool = require("../database/connection");
@@ -59,11 +64,11 @@ router.post('/register', async (req, res) => {
 
         // send the otp to the register email
 
-        // const subject = 'Verify Your Email';
-        // const text = `Hello ${fullname}, Please verify your email.`;
-        // const html = `<p>Hello <strong>${fullname}</strong>, this is otp - ${otp}</p>`;
+        const subject = 'Verify Your Email';
+        const text = `Hello ${fullname}, Please verify your email.`;
+        const html = `<p>Hello <strong>${fullname}</strong>, this is otp - ${otp}</p>`;
 
-        // await sendMail(email, subject, text, html);
+        await sendMail(email, subject, text, html);
 
         // insert the otp in the databse 
 
@@ -147,6 +152,13 @@ router.post('/add-phone', async (req, res) => {
         const otp = crypto.randomInt(100000, 999999).toString();
         const tokenExpires = new Date(Date.now() + 300000); // 5 minutes
 
+        // Send OTP via Twilio SMS
+        await client.messages.create({
+            body: `Your verification code for Finkonomics is: ${otp}`,
+            from: twilioPhoneNumber,
+            to: phoneNumber
+        });
+
         console.log({ location: "/verify-phone", otp })
 
         // Store the OTP in the database
@@ -205,7 +217,7 @@ router.post('/financial-info', authMiddleware, async (req, res) => {
 
         const { rows } = await pool.query(insertQuery, [sellerId, gstIn, streetAddress, pincode, city, country, cin]);
 
-        res.status(201).json({ message: 'Financial details added successfully', data: rows[0], redirectTo:"/registration/bank-details" }); // return the redirecting path
+        res.status(201).json({ message: 'Financial details added successfully', data: rows[0], redirectTo: "/registration/bank-details" }); // return the redirecting path
 
     } catch (error) {
         console.error('Error inserting financial info:', error.message);
@@ -326,7 +338,7 @@ router.post('/other-details', authMiddleware, upload.single('logo'), async (req,
             logoKey ? [natureOfBusiness, website, logoKey, sellerId] : [natureOfBusiness, website, sellerId]
         );
 
-        res.json({ message: 'Details updated successfully', logoKey,redirectTo: "/logout" });
+        res.json({ message: 'Details updated successfully', logoKey, redirectTo: "/logout" });
     } catch (err) {
         console.error(err.message);
         res.status(500).json({ message: 'Server error' });
@@ -382,6 +394,47 @@ router.get("/resend-email-otp", async (req, res) => {
     } catch (error) {
         console.error(error.message);
         res.status(500).json({ message: "Server error" });
+    }
+});
+
+router.get('/resend-phone-otp', async (req, res) => {
+    try {
+        const { phoneNumber } = req.query;
+
+        if (!phoneNumber) {
+            return res.status(400).json({ message: 'Phone number is required' });
+        }
+
+        // Check if the phone number exists in the database
+        const user = await pool.query('SELECT * FROM "sellersInfo" WHERE "phoneNumber" = $1', [phoneNumber]);
+
+        if (user.rows.length === 0) {
+            return res.status(404).json({ message: 'Phone number not found' });
+        }
+
+        // Generate a new OTP
+        const otp = crypto.randomInt(100000, 999999).toString();
+        const tokenExpires = new Date(Date.now() + 300000); // 5 minutes
+
+        console.log({ location: '/resend-phone-otp', otp });
+
+        // Send OTP via Twilio SMS
+        await client.messages.create({
+            body: `Your new verification code is: ${otp}`,
+            from: twilioPhoneNumber,
+            to: phoneNumber
+        });
+
+        // Update the OTP in the database
+        await pool.query(
+            'UPDATE "sellersInfo" SET "verificationToken" = $1, "verificationTokenExpires" = $2 WHERE "phoneNumber" = $3',
+            [otp, tokenExpires, phoneNumber]
+        );
+
+        res.json({ message: 'New OTP has been sent to your registered phone number' });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ message: 'Server error' });
     }
 });
 
