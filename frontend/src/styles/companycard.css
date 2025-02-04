@@ -7,10 +7,14 @@
 
 .company-card-container {
   font-family: Arial, sans-serif;
-  max-width: 80%;
-  margin: auto;
-  margin-top: 2%;
-  margin-bottom: 3%;
+  max-width: 100%;
+  /* margin: 20px; */
+  margin-top: 20px;
+  margin-left: 20px;
+  /* margin-bottom: 20px; */
+  align-items: center;
+  /* border: 2px solid; */
+  margin-right: 25px;
 }
 
 .company-item {
@@ -46,10 +50,10 @@
   font-size: 12px;
 }
 .company-checkbox {
-  margin-left: 10px;
-  width: 30px;
-  height: 30px;
-  border-radius: 5px;
+  margin-left: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
   accent-color: #fffad8;
 }
 
@@ -57,10 +61,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  /* max-width: 600px; */
   margin: 10px auto;
   text-align: center;
+  /* border-radius: 10px; */
 }
 
 .searchbox-wrapper {
@@ -103,20 +106,25 @@
 .landing-page-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  overflow: hidden;
+  /* height: 80%; */
+  /* border: 2px solid red; */
+  /* margin-bottom: 70px; */
+  /* overflow: hidden; */
   /* Prevent the₹4869 entire page from scrolling */
+  
 }
 
 .company-card-scroll-container {
   /* overflow-y: hidden; */
-  padding: 10px;
+  /* padding: 10px; */
   width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
+  /* max-width: 800px; */
+  /* margin: 0 auto; */
   background-color: #BACD9A;
-  /* border-top-right-radius: 0px; */
-  /* border-top-left-radius: 20px; */
+  /* border: 2px solid red; */
+  /* margin-left: 10px; */
+  /* border-top-right-radius: 20px;
+  border-top-left-radius: 20px; */
 }
 
 .company-exchange
@@ -137,6 +145,17 @@
   cursor: pointer;
   font-family: Poppins, sans-serif;
 }
+
 .logo{
 margin-left: 40%
+}
+
+
+.button-area1
+{
+  display: flex;
+  justify-content: center;
+  /* border: 2px solid rgb(15, 7, 7); */
+  margin-top: 8px;
+  margin-bottom: 72px;
 }

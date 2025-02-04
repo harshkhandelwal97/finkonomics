@@ -5,7 +5,8 @@ import CompanyCard from "../components/companycard";
 import { useEffect, useState } from "react";
 import { addSellers } from "../service/authService";
 import { useNavigate } from "react-router-dom";
-
+import NavigationBar from "./Navigationbar";
+import TuneIcon from '@mui/icons-material/Tune';
 const PermissionPage: React.FC = () => {
   const [selectedCompanies, setSelectedCompanies] = useState<string[]>([]);
 
@@ -57,18 +58,22 @@ const PermissionPage: React.FC = () => {
             />
             <SearchOutlinedIcon />
           </div>
-          <button className="filter-button">Filter</button>
+          <button className="filter-button"> <TuneIcon/> Filter</button>
         </div>
+        <div>
+
         <h3>Select all the brands whose services you use</h3>
+        </div>
       </div>
       <div className="company-card-scroll-container">
         <CompanyCard onSelectionChange={handleSelection} />
       </div>
-      <div className="button-area">
+      <div className="button-area1">
         <button className="submit-button" onClick={handleSubmit}>
           Confirm
         </button>
       </div>
+      <NavigationBar />
     </div>
   );
 };
