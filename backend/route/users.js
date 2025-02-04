@@ -166,10 +166,10 @@ router.post('/verify-phone', async (req, res) => {
     // Generate a JWT token or set a cookie for the user
     const token = jwt.sign({ id: user.rows[0].id, entity: "seller" }, process.env.JWT_AUTH_SECRET, { expiresIn: '7d' });
 
-    res.status(200).json({ message: 'Phone number verified successfully', token });
+    res.status(200).json({ message: 'Phone number verified successfully', token, id: userId, name:  user.rows[0].fullname });
   } catch (err) {
     console.error(err.message);
-    res.status(500).json({ message: err.message || 'Server error', id: userId, name:  user.rows[0].name });
+    res.status(500).json({ message: err.message || 'Server error' });
   }
 });
 
@@ -263,7 +263,8 @@ router.post('/login', async (req, res) => {
 
   try {
 
-    if (phoneNumber != undefined) {
+    if (phoneNumber !== "" ) {
+      console.log(email, password, phoneNumber)
       const phoneExists = await pool.query(
         'SELECT * FROM "users" WHERE "phoneNumber" = $1',
         [phoneNumber]
@@ -333,7 +334,7 @@ router.post('/login', async (req, res) => {
     //   maxAge: 7 * 24 * 60 * 60 * 1000,
     // });
 
-    res.json({ message: 'Login successful', token, id: id, name:  user.rows[0].name});
+    res.json({ message: 'Login successful', token, id: user.rows[0].id, name:  user.rows[0].fullname});
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ message: 'Server error' });
