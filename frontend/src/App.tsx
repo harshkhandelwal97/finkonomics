@@ -80,7 +80,12 @@ function App() {
 
         <Route
           path="/register/phone-otp/verification"
-          element={<OTPScreenPhone />}
+          element={<OTPScreenPhone path={"register"} />}
+        />
+
+        <Route
+          path="/login/phone-otp/verification"
+          element={<OTPScreenPhone path={"login"} />}
         />
 
         <Route
@@ -126,7 +131,6 @@ function App() {
   }
 /> */}
 
-        <Route path="/register/phone" element={<OTPScreenPhone />} />
       </Routes>
     </div>
   );
