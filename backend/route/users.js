@@ -589,36 +589,39 @@ router.get('/get-all-sellers', authMiddleware, async (req, res) => {
     // Extract query parameters
     const { search, natureOfBusiness, page = 1, limit = 100 } = req.query;
     const offset = (page - 1) * limit;
+    const userId = req.user.id; // Authenticated user's ID
 
     // Base query
     let query = `
         SELECT 
-          id, 
-          "legalName", 
-          logo, 
-          "coinName", 
-          "coinLogo",
-        FROM "sellersInfo" 
-        WHERE isDeleted = FALSE
+          s.id, 
+          s."legalName", 
+          s.logo, 
+          s."coinName", 
+          s."coinLogo",
+          CASE WHEN up."sellerId" IS NOT NULL THEN TRUE ELSE FALSE END AS checked
+        FROM "sellersInfo" s
+        LEFT JOIN "userPortfolio" up ON s.id = up."sellerId" AND up."userId" = $1
+        WHERE s."isDeleted" = FALSE
       `;
 
-    const params = [];
+    const params = [userId];
 
     // Add search functionality (by name)
     if (search) {
-      query += ` AND "legalName" ILIKE $${params.length + 1}`;
+      query += ` AND s."legalName" ILIKE $${params.length + 1}`;
       params.push(`%${search}%`);
     }
 
     // Add filter functionality (by nature of business)
     if (natureOfBusiness) {
-      query += ` AND "natureOfBusiness" = $${params.length + 1}`;
+      query += ` AND s."natureOfBusiness" = $${params.length + 1}`;
       params.push(natureOfBusiness);
     }
 
     // Add pagination
     query += `
-        ORDER BY createdAt DESC
+        ORDER BY s."createdAt" DESC
         LIMIT $${params.length + 1} OFFSET $${params.length + 2}
       `;
     params.push(limit, offset);
@@ -626,12 +629,12 @@ router.get('/get-all-sellers', authMiddleware, async (req, res) => {
     // Execute the query
     const sellers = await pool.query(query, params);
 
-    // Get the total count of sellers (for infinite scrolling)
+    // Get the total count of sellers (for pagination)
     let countQuery = `SELECT COUNT(*) FROM "sellersInfo" WHERE "isDeleted" = FALSE`;
     const countParams = [];
 
     if (search) {
-      countQuery += ` AND name ILIKE $${countParams.length + 1}`;
+      countQuery += ` AND "legalName" ILIKE $${countParams.length + 1}`;
       countParams.push(`%${search}%`);
     }
 
