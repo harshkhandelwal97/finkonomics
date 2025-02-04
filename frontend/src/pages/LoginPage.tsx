@@ -1,7 +1,8 @@
 import { useState } from "react";
 import "../styles/login.css"; // Import CSS file for styling
-import logo from  "../assets/logo.svg";
+import logo from "../assets/logo.svg";
 import { Link } from "react-router-dom";
+
 const UserLoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,6 +13,7 @@ const UserLoginPage = () => {
     password: "",
     mobileNumber: "",
   });
+  const [loginMethod, setLoginMethod] = useState<"email" | "mobile">("email"); // Track login method
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,130 +23,160 @@ const UserLoginPage = () => {
 
     let isValid = true;
 
-    // Validate email
-    if (!email.trim()) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        email: "Email is required",
-      }));
-      isValid = false;
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        email: "Invalid email format",
-      }));
-      isValid = false;
-    }
+    if (loginMethod === "email") {
+      // Validate email
+      if (!email.trim()) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          email: "Email is required",
+        }));
+        isValid = false;
+      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          email: "Invalid email format",
+        }));
+        isValid = false;
+      }
 
-    // Validate password
-    if (!password.trim()) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        password: "Password is required",
-      }));
-      isValid = false;
-    }
-
-    // Validate mobile number
-    if (!mobileNumber.trim()) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        mobileNumber: "Mobile number is required",
-      }));
-      isValid = false;
-    } else if (!/^\d{10}$/.test(mobileNumber)) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        mobileNumber: "Mobile number must be 10 digits",
-      }));
-      isValid = false;
+      // Validate password
+      if (!password.trim()) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          password: "Password is required",
+        }));
+        isValid = false;
+      }
+    } else if (loginMethod === "mobile") {
+      // Validate mobile number
+      if (!mobileNumber.trim()) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          mobileNumber: "Mobile number is required",
+        }));
+        isValid = false;
+      } else if (!/^\d{10}$/.test(mobileNumber)) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          mobileNumber: "Mobile number must be 10 digits",
+        }));
+        isValid = false;
+      }
     }
 
     if (isValid) {
-      console.log("Email:", email);
-      console.log("Password:", password);
-      console.log("Mobile Number:", `${countryCode} ${mobileNumber}`);
+      if (loginMethod === "email") {
+        console.log("Email:", email);
+        console.log("Password:", password);
+      } else {
+        console.log("Mobile Number:", `${countryCode} ${mobileNumber}`);
+      }
       // Proceed with form submission (e.g., API call) here
     }
   };
 
   return (
-    
     <div className="login-container">
-    
       <div className="login-box">
-      <div className="logo">
-        <img src = {logo} alt = '_logo'/>
-      </div>
+        <div className="logo">
+          <img src={logo} alt="_logo" />
+        </div>
         <h1>Welcome to Finkonomics</h1>
         <p>You are just one step away!</p>
 
-        <div className="input-group-mobile">
-          <div className="mobile-wrapper">
-            <select
-              className="country-code"
-              value={countryCode}
-              onChange={(e) => setCountryCode(e.target.value)}
+    
+        <div className="login-method-toggle">
+          <div className="btn">
+            <button
+              type="button"
+              className={`toggle-btn ${loginMethod === "email" ? "active" : ""}`}
+              onClick={() => setLoginMethod("email")}
             >
-              <option value="+1">+1 (USA)</option>
-              <option value="+91">+91 (India)</option>
-              <option value="+44">+44 (UK)</option>
-              <option value="+61">+61 (Australia)</option>
-              <option value="+81">+81 (Japan)</option>
-            </select>
+              Login with Email
+            </button>
           </div>
 
-          <div className="mobile-number">
-            <input
-              type="tel"
-              placeholder="Mobile Number"
-              value={mobileNumber}
-              onChange={(e) => setMobileNumber(e.target.value)}
-              required
-            />
+          <div className="btn">
+            <button
+              type="button"
+              className={`toggle-btn ${loginMethod === "mobile" ? "active" : ""}`}
+              onClick={() => setLoginMethod("mobile")}
+            >
+              Login with Mobile
+            </button>
           </div>
-          {errors.mobileNumber && (
-            <p className="error-message">{errors.mobileNumber}</p>
-          )}
         </div>
 
-        <div className="separator">
-          <hr />
-          <span>Or</span>
-          <hr />
-        </div>
+        {loginMethod === "mobile" && (
+          <div className="input-group-mobile">
+            <div className="mobile-wrapper">
+              <select
+                className="country-code"
+                value={countryCode}
+                onChange={(e) => setCountryCode(e.target.value)}
+              >
+                <option value="+1">+1 (USA)</option>
+                <option value="+91">+91 (India)</option>
+                <option value="+44">+44 (UK)</option>
+                <option value="+61">+61 (Australia)</option>
+                <option value="+81">+81 (Japan)</option>
+              </select>
+            </div>
 
-        <form onSubmit={handleSubmit}>
-          <div className="input-group">
-            <label>Email</label>
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            {errors.email && <p className="error-message">{errors.email}</p>}
-          </div>
-
-          <div className="input-group">
-            <label>Password</label>
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            {errors.password && (
-              <p className="error-message">{errors.password}</p>
+            <div className="mobile-number">
+              <input
+                type="tel"
+                placeholder="Mobile Number"
+                value={mobileNumber}
+                onChange={(e) => setMobileNumber(e.target.value)}
+                required
+              />
+            </div>
+            {errors.mobileNumber && (
+              <p className="error-message">{errors.mobileNumber}</p>
             )}
           </div>
+        )}
 
-          <button type="submit" className="login-btn">
+        {loginMethod === "email" && (
+          <form onSubmit={handleSubmit}>
+            <div className="input-group">
+              <label>Email</label>
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              {errors.email && <p className="error-message">{errors.email}</p>}
+            </div>
+
+            <div className="input-group">
+              <label>Password</label>
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              {errors.password && (
+                <p className="error-message">{errors.password}</p>
+              )}
+            </div>
+
+            <button type="submit" className="login-btn">
+              Login
+            </button>
+          </form>
+        )}
+
+        {loginMethod === "mobile" && (
+          <button type="submit" className="login-btn" onClick={handleSubmit}>
             Login
           </button>
-        </form>
+        )}
 
         <Link to={"/forgot_password"} className="forgot-password">
           Forgot your Password?

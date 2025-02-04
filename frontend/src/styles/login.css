@@ -32,7 +32,51 @@ p {
   margin-bottom: 20px;
 }
 
-/* Mobile input group styling */
+
+.login-method-toggle {
+  display: flex;
+  justify-content: center; /* Centering buttons */
+  align-items: center;
+  gap: 10px; /* Uniform spacing */
+  /* border: 2px solid #ccc; */
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+}
+
+.toggle-btn {
+  padding: 10px 18px; /* Slightly larger for better touch accessibility */
+  border: 2px solid transparent;
+  background-color: #e0e0e0;
+  color: #333;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+}
+.btn1
+{
+  width: 60%;
+  height: 100%;
+}
+.btn2
+{
+  width: 50%;
+  height: 100%;
+}
+
+.toggle-btn.active {
+  background-color: #368455; /* Green background for active button */
+  color: white;
+  margin-left: 15%;
+}
+
+.toggle-btn:hover {
+  background-color: #d0d0d0; /* Slightly darker gray on hover */
+}
+
 .mobile-input-group {
   text-align: left;
   margin-bottom: 15px;
@@ -178,4 +222,9 @@ p {
   color: red;
   font-size: 12px;
   margin-top: 5px;
+}
+.input-group input:focus, .mobile-number input:focus {
+  outline: none;
+  border-color: #205736; /* Green border on focus */
+  box-shadow: 0 0 5px rgba(54, 132, 85, 0.2); /* Subtle shadow on focus */
 }
