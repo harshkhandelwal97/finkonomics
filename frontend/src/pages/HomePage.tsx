@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/homepage.css";
-import { PointsSummaryProps, UserPortfolio } from "../types/types";
+import { UserPortfolio } from "../types/types";
 import CompanyCardHome from "../components/companycardHome";
 import FilterSortButtons from "../components/FilterSortButtons";
 import { getUserPortfolio } from "../service/authService";
-import SwipeableEdgeDrawer from "../components/Drawer";
 import { EmptyCart } from "../components/EmptyCart";
 // import "../styles/emptyCart.css"
-import { ActionButton } from "../components/ActionButton";
-import Header1 from "../components/Header1";
+// import { ActionButton } from "../components/ActionButton";
 
 export const Homepage = () => {
   const [userPortfolio, setUserPortfolio] = useState<UserPortfolio[]>([]);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
   console.log(userPortfolio);
 
   const fetchUserPortfolio = async () => {
@@ -29,31 +25,15 @@ export const Homepage = () => {
     fetchUserPortfolio();
   }, []);
 
-  const handleStoreButtonClick = () => {
-    setIsDrawerOpen(true);
-  };
 
-  const handleDrawerClose = () => {
-    setIsDrawerOpen(false);
-  };
-
-  // const totalPoints = userPortfolio.reduce((total, portfolio) => total + portfolio.coinsAvailable, 0); // Update with real property
-  // const totalValue = userPortfolio.reduce((total, portfolio) => total + portfolio.coinsAvailable*portfolio.currentExchangeRatio, 0); // Update with real property
-  // const coinAvailableArray = userPortfolio.map(portfolio => portfolio.coinsAvailable);
-  //   const coinAvailableArray = userPortfolio.map(portfolio => portfolio.coinsAvailable);
-  // const totalCoinsAvailable = coinAvailableArray.reduce((total, coins) => total + (coins || 0), 0);
-
-  // const coinAvailableArray = userPortfolio.map(portfolio => parseInt(portfolio.coinsAvailable, 10)); // or Number(portfolio.coinsAvailable)
-  // const totalCoinsAvailable = coinAvailableArray.reduce((total, coins) => total + (coins || 0), 0);
-
-  var totalCoins = Math.round(
+  const totalCoins = Math.round(
     userPortfolio.reduce(
       (total, portfolio) =>
         total + (parseInt(portfolio.coinsAvailable, 10) || 0),
       0
     )
   );
-  var totalValue = Math.round(
+  const totalValue = Math.round(
     userPortfolio.reduce(
       (total, portfolio) =>
         total +
@@ -62,10 +42,7 @@ export const Homepage = () => {
       0
     )
   );
-  // totalCoins =0;
-  // totalValue=0;
-  //  console.log(coinAvailableArray)
-  // console.lo
+
   return (
     <div className="home-main-page">
       <div className="pointinfo-sort">
@@ -83,7 +60,7 @@ export const Homepage = () => {
               </div>
               <button
                 className="action-button store-button"
-                onClick={handleStoreButtonClick}
+                // onClick={handleStoreButtonClick}
               >
                 Use in store
               </button>

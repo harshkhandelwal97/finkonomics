@@ -39,7 +39,8 @@ const PhoneNumberScreen: React.FC = () => {
     try {
       const res = await registerPhoneNo(seedId, mobileNumber)
       navigate(res.redirectTo);
-    } catch (error:any) {
+    } catch (error) {
+      console.log(error);
       
     }
     // Add logic to verify phone number or send OTP

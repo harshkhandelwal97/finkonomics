@@ -1,11 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import '../styles/companyFinancialRegistration.css'; // Import your CSS file
 
-interface AdditionalDetailsPageProps {
-  // Add any props your component might receive here
-}
-
-const CompanyFinancialDetailsPage: React.FC<AdditionalDetailsPageProps> = () => {
+const CompanyFinancialDetailsPage = () => {
   const [gstin, setGstin] = useState('');
   const [address1, setAddress1] = useState('');
   const [address2, setAddress2] = useState('');

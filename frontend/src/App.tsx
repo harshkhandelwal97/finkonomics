@@ -1,5 +1,4 @@
 import "./App.css";
-import CompanyCard from "./components/companycard";
 // import landingPage from "./pages/LandingPage";
 import Permission from "./pages/Permission";
 import HistoryPage from "./pages/HistoryPage";
@@ -7,12 +6,10 @@ import CompanyLoginPage from "./pages/CompanyLoginPage";
 import PhoneNumberScreen from "./pages/UserPhoneRegistration";
 import OTPScreenPhone from "./pages/UserPhoneOtp";
 import { Route, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar";
 // import UserRegistration from "./pages/UserRegistration";
 import UserRegistrationPage from "./pages/UserRegistration";
 import Header1 from "./components/Header1";
 import CompanyRegistrationPage from "./pages/CompanyRegistration";
-import AdditionalDetailsPage from "./pages/CompanyFinancialRegistration";
 import CompanyFinancialDetailsPage from "./pages/CompanyFinancialRegistration";
 import CompanyBankDetails from "./pages/CompanyBankDetails";
 import { NotificationsPage } from "./pages/NotificationPage";
@@ -20,13 +17,14 @@ import { PaymentReceipt } from "./pages/paymentReceipt";
 import UserOtpScreen from "./pages/UserEmailOtp";
 import UserLoginPage from "./pages/LoginPage";
 import { Homepage } from "./pages/HomePage";
-import { RewardPointsData } from "./types/types";
-import Sidebar from "./pages/Navigationbar";
+import DiscountGateway from "./pages/DiscountGateway";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import PaymentFailure from "./pages/PaymentFailure";
 import NavigationBar from "./pages/Navigationbar";
 // import { RewardPointsCard } from "./components/RewardPointCard";
 function App() {
   return (
-    <div>
+    <div className="app">
       <Routes>
         <Route
           path="/"
@@ -69,8 +67,8 @@ function App() {
           path="/register/phone/verification"
           element={<PhoneNumberScreen />}
         />
-       
-       <Route
+
+        <Route
           path="/home/notification"
           element={
             <>
@@ -79,13 +77,31 @@ function App() {
             </>
           }
         />
-   
+
         <Route
           path="/register/phone-otp/verification"
           element={<OTPScreenPhone />}
         />
 
-        <Route path="/home/payment" element={<PaymentReceipt />} />
+        <Route
+          path="/payment/receipt"
+          element={<PaymentReceipt />}
+        />
+
+        <Route
+          path="/discount/gateway"
+          element={<DiscountGateway />}
+        />
+
+        <Route
+          path="/payment/success"
+          element={<PaymentSuccess />}
+        />
+
+        <Route
+          path="/payment/failure"
+          element={<PaymentFailure />}
+        />
         <Route path="/company/register" element={<CompanyRegistrationPage />} />
         <Route
           path="/company/register/financial"
@@ -97,7 +113,7 @@ function App() {
         />
         <Route path="/company/login" element={<CompanyLoginPage />} />
         <Route path="/payment" element={<PaymentReceipt />} />
-     
+
 
         {/* <Route
   path="/homepage"

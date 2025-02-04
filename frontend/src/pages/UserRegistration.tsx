@@ -1,27 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, FormEvent } from 'react';
 import '../styles/UserRegistration.css';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import axiosInstance from '../service/axiosInstance';
 import logo from  "../assets/logo.svg";
-// Service function (can be in a separate file)
-export const registerService = async (
-  fullname: string,
-  email: string,
-  password: string
-) => {
-  try {
-    const response = await axiosInstance.post("/api/user/register", {
-      fullname,
-      email,
-      password,
-    });
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};
-
+import { registerService } from '../service/authService';
 // Interface for validation errors
 interface Errors {
   fullName?: string;
@@ -60,7 +43,7 @@ const UserRegistrationPage: React.FC = () => {
         const response = await registerService(fullName, email, password);
         console.log("Registration successful:", response);
         navigate(response.redirectTo); // Your redirection path
-      } catch (error: any) {
+      } catch (error :any) {
         console.error("Registration failed:", error);
 
         if (error.response && error.response.data && error.response.data.message) {
@@ -75,7 +58,7 @@ const UserRegistrationPage: React.FC = () => {
   };
 
   const validateForm = (): Errors => {
-    let errors: Errors = {};
+    const errors: Errors = {};
 
     if (!fullName.trim()) {
       errors.fullName = 'Full Name is required';

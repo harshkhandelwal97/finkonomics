@@ -4,7 +4,6 @@ import { NotificationCard } from "../components/NotificatonCard";
 import { Tab } from "../components/NotificationTab";
 import { NotificationItem } from "../types/types";
 import Header1 from "../components/Header1";
-import Navbar from "../components/Navbar";
 // import Footer1 from "../components/footer";
 
 const notifications: NotificationItem[] = [

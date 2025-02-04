@@ -34,7 +34,7 @@ import { UserPortfolio } from "../types/types";
                   <div className="avatar-image">
                     <Avatar
                       alt="Remy Sharp"
-                      src={`https://res.cloudinary.com/${import.meta.env.CLOUDINARY_CLOUD_NAME}/image/upload/${seller.logo}`}
+                      src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload/${seller.logo}`}
                       sx={{ width: 32, height: 32 }}
                     />
                   </div>

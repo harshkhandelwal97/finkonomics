@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import React, { useState, useEffect, useRef } from "react";
 import "../styles/UserPhoneRegistration.css";
 import { verifyEmail } from "../service/authService"; // Make sure the path is correct
@@ -17,14 +19,14 @@ const UserOtpScreen = () => {
   
 
   useEffect(() => {
-    let timerId: ReturnType<typeof setInterval>; // Define timerId with type
+    // Define timerId with type
 
     if (timeLeft === 0) {
       setIsResendDisabled(false);
       return;
     }
 
-    timerId = setInterval(() => {
+    const timerId = setInterval(() => {
       setTimeLeft((prevTime) => prevTime - 1);
     }, 1000);
 
@@ -44,7 +46,7 @@ const UserOtpScreen = () => {
       console.log(seedId)
       const res = await verifyEmail(seedId, fullOtp);
       navigate(res.redirectTo); // Use navigate for redirection
-    } catch (error: any) {
+    } catch (error: any) { //Unexpected any. Specify a different type
       if (error.response && error.response.data && error.response.data.message) {
         setApiError(error.response.data.message);
       } else if (error.message) {

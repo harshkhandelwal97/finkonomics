@@ -39,8 +39,8 @@ const OTPScreenPhone: React.FC = () => {
       navigate("/permissions");
 
       localStorage.setItem("token", res.token)
-    } catch (error :any) {
-    
+    } catch (error) {
+      console.log(error)
       // Add logic to verify OTP
     }
     // Add logic to verify OTP

@@ -1,6 +1,6 @@
 import "../styles/companycard.css";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { getAllSellers } from "../service/authService";
+import {  getAllSellersWithUserRegistration } from "../service/authService";
 import { useEffect, useState } from "react";
 import { CompanyCardProps, SellersDetails } from "../types/types";
 
@@ -16,7 +16,7 @@ const CompanyCard: React.FC<CompanyCardProps> = ({ onSelectionChange }) => {
 
   const fetchSellers = async () => {
     try {
-      const res = await getAllSellers();
+      const res = await getAllSellersWithUserRegistration();
       setSellers(res.sellers);
     } catch (error) {
       console.log(error);
@@ -47,6 +47,7 @@ const CompanyCard: React.FC<CompanyCardProps> = ({ onSelectionChange }) => {
                     className="company-checkbox"
                     onChange={() => handleCheckboxChange(seller.id)}
                     defaultChecked={seller.checked}
+
                   />
                 </div>
               </div>

@@ -71,3 +71,24 @@ export interface PointsSummaryProps {
     variant: "primary" | "secondary";
     onClick?: () => void;
   }
+
+ export  interface AppliedDiscountTypes{
+    id: string;
+    discount: number;
+    legalName: string;
+    logo: string;
+  }
+
+  export interface Sellers{
+    sellerId: string,
+    amount: number,
+    points: number
+  }
+
+  export interface FinancialDataTypes{
+    transactionId : string,
+    sellerTransferredToId : string,
+    totalAmount: number,
+    fromSellers : Sellers[],
+  }
+  

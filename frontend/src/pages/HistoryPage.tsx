@@ -1,11 +1,8 @@
 import CompanyCard from "../components/companycardWithPoints";
 import TuneIcon from '@mui/icons-material/Tune';
 import Header1 from "../components/Header1";
-import Footer1 from "../components/footer";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import '../styles/HistoryPage.css'
-import { Class } from "@mui/icons-material";
-import { ClassNames } from "@emotion/react";
 const HistoryPage = () => {
   return (
     <div className="landing-page-container">

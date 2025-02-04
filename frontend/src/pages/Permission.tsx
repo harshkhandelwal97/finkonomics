@@ -28,7 +28,7 @@ const PermissionPage: React.FC = () => {
   const handleSubmit = async () => {
     try {
       console.log(selectedCompanies.toString());
-      const res = await addSellers(selectedCompanies);
+      await addSellers(selectedCompanies);
       navigate("/");
     } catch (error) {
       console.error("Error:", error);

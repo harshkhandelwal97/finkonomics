@@ -2,33 +2,30 @@ import React from "react";
 // import styles from "./PaymentReceipt.module.css";
 import "../styles/paymentReceipt.css"
 
-import { RewardPointsData } from "../types/types";
+import { AppliedDiscountTypes } from "../types/types";
 
-interface RewardPointsCardProps {
-  data: RewardPointsData;
-}
 
-export const RewardPointsCard: React.FC<{ data: RewardPointsData }> = ({ data }) => {
+export const RewardPointsCard: React.FC<{ data: AppliedDiscountTypes }> = ({ data }) => {
     return (
       <div className="rewardCard">
-        <div className="rewardHeader">
+        {/* <div className="rewardHeader">
           <div className="quantity">Qty= {data.quantity}</div>
           <div className="pointValue">
             <div className="value">{data.pointValue}</div>
             <div className="infoIcon">i</div>
           </div>
-        </div>
+        </div> */}
         <div className="rewardDetails">
           <div className="rewardInfo">
             <img
               loading="lazy"
-              src={data.icon}
-              alt={`${data.name} icon`}
+              src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload/${data.logo}`}
+              alt={`${data.legalName} icon`}
               className="rewardIcon"
             />
-            <div className="rewardName">{data.name}</div>
+            <div className="rewardName">{data.legalName}</div>
           </div>
-          <div className="rewardAmount">{data.amount}</div>
+          <div className="rewardAmount">-₹{data.discount}</div>
         </div>
       </div>
     );
