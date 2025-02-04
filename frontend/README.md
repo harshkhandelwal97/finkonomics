@@ -1,50 +1,39 @@
-# React + TypeScript + Vite
+# Finkonomics - Unified Reward System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+Finkonomics is a unified reward system built with **React.js** that allows users to seamlessly exchange points across multiple sellers and utilize them efficiently during payments. This project aims to create a seamless and integrated reward ecosystem for users and sellers.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### 1. Cross-Seller Point Exchange
+- Users can exchange reward points across different sellers.
+- Efficiently manage and utilize points from multiple platforms in one place.
 
-- Configure the top-level `parserOptions` property like this:
+### 2. Multi-Seller Coin Payment
+- Users can use reward coins from other sellers during payments.
+- The system verifies the validity of the coins and processes the payment securely.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### 3. Notification and History (Upcoming)
+- Notifications for point updates, rewards, and transactions.
+- Transaction history to track all point exchanges and payments.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### 4. Demo of the App
+- A live demo showcasing the core functionality of the app.
+- [https://finkonomics.vercel.app](#)
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+---
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Getting Started
+
+### Prerequisites
+- Node.js (v20 or higher)
+- npm (v8 or higher)
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/harshkhandelwal97/finkonomics
+   cd finkonomics
