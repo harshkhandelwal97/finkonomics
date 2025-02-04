@@ -148,4 +148,32 @@
     border-radius: 0 5px 5px 0;
     height: 24px;
   }
+  .form-container {
+    background: linear-gradient(to bottom, #fffbcf, #ffffff) no-repeat;
+      background-size: 100% 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* background-color: #f8f9fa; */
+    font-family: sans-serif;
+  }
   
+  .form-box {
+    background-color:#FAFAFA;
+    padding: 40px;
+    border-radius: 8px;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    width: 80%;
+  }
+  h3{
+    margin-left: 10%;
+    color: #404040
+  }
+  h4{
+    margin-left: 18%;
+    color:#404040
+  }
+  .logo{
+    margin-right: 50%;
+    }

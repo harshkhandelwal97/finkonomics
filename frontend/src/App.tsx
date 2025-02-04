@@ -5,7 +5,7 @@ import Permission from "./pages/Permission";
 import HistoryPage from "./pages/HistoryPage";
 import CompanyLoginPage from "./pages/CompanyLoginPage";
 import PhoneNumberScreen from "./pages/UserPhoneRegistration";
-import OTPScreenPhone from "./pages/UserPhoneOtp"
+import OTPScreenPhone from "./pages/UserPhoneOtp";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 // import UserRegistration from "./pages/UserRegistration";
@@ -19,7 +19,11 @@ import { NotificationsPage } from "./pages/NotificationPage";
 import { PaymentReceipt } from "./pages/paymentReceipt";
 import UserOtpScreen from "./pages/UserEmailOtp";
 import UserLoginPage from "./pages/LoginPage";
-import {Homepage } from "./pages/HomePage";
+import { Homepage } from "./pages/HomePage";
+import { RewardPointsData } from "./types/types";
+import Sidebar from "./pages/Navigationbar";
+import NavigationBar from "./pages/Navigationbar";
+// import { RewardPointsCard } from "./components/RewardPointCard";
 function App() {
   return (
     <div>
@@ -30,7 +34,8 @@ function App() {
             <>
               <Header1 />
               <Homepage />
-            
+              <NavigationBar />
+
             </>
           }
         />
@@ -39,7 +44,7 @@ function App() {
           element={
             <>
               <Permission />
-              {/* <Navbar /> */}
+              <NavigationBar />
             </>
           }
         />
@@ -50,7 +55,7 @@ function App() {
           element={
             <>
               <HistoryPage />
-              <Navbar />
+              <NavigationBar />
             </>
           }
         />
@@ -60,29 +65,40 @@ function App() {
           element={<UserOtpScreen />}
         />
 
-      
         <Route
           path="/register/phone/verification"
           element={<PhoneNumberScreen />}
         />
-
-         <Route
+       
+       <Route
           path="/home/notification"
-          element={<NotificationsPage />}
+          element={
+            <>
+              <NotificationsPage />
+              <NavigationBar />
+            </>
+          }
         />
+   
         <Route
           path="/register/phone-otp/verification"
           element={<OTPScreenPhone />}
         />
 
-          <Route
-          path="/home/payment"
-          element={<PaymentReceipt />}
-        />
+        <Route path="/home/payment" element={<PaymentReceipt />} />
         <Route path="/company/register" element={<CompanyRegistrationPage />} />
-        <Route path="/company/register/financial" element={<CompanyFinancialDetailsPage />} />
-        <Route path="/company/register/financial/bank" element={<CompanyBankDetails />} />
+        <Route
+          path="/company/register/financial"
+          element={<CompanyFinancialDetailsPage />}
+        />
+        <Route
+          path="/company/register/financial/bank"
+          element={<CompanyBankDetails />}
+        />
         <Route path="/company/login" element={<CompanyLoginPage />} />
+        <Route path="/payment" element={<PaymentReceipt />} />
+     
+
         {/* <Route
   path="/homepage"
   element={
@@ -94,6 +110,7 @@ function App() {
   }
 /> */}
 
+        <Route path="/register/phone" element={<OTPScreenPhone />} />
       </Routes>
     </div>
   );

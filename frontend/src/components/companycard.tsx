@@ -46,7 +46,7 @@ const CompanyCard: React.FC<CompanyCardProps> = ({ onSelectionChange }) => {
                     type="checkbox"
                     className="company-checkbox"
                     onChange={() => handleCheckboxChange(seller.id)}
-                    checked={seller.checked}
+                    defaultChecked={seller.checked}
                   />
                 </div>
               </div>

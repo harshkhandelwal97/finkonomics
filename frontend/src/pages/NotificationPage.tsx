@@ -83,7 +83,7 @@ export const NotificationsPage: React.FC = () => {
         </div>
       </nav> */}
 
-      <Navbar />
+      
       {/* <Footer1 /> */}
 
     </div>

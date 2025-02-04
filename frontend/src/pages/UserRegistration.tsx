@@ -3,7 +3,7 @@ import '../styles/UserRegistration.css';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../service/axiosInstance';
-
+import logo from  "../assets/logo.svg";
 // Service function (can be in a separate file)
 export const registerService = async (
   fullname: string,
@@ -105,6 +105,9 @@ const UserRegistrationPage: React.FC = () => {
   return (
     <div className="register-container">
       <div className="register-box">
+      <div className="logo">
+        <img src = {logo} alt = '_logo'/>
+      </div>
         <h1>Finkonomics</h1>
         <p>You are just few steps away!</p>
 

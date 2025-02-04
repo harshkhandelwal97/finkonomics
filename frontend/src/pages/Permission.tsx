@@ -22,15 +22,14 @@ const PermissionPage: React.FC = () => {
     });
   };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // Function to send selected IDs to the backend
   const handleSubmit = async () => {
     try {
-      console.log(selectedCompanies.toString())
+      console.log(selectedCompanies.toString());
       const res = await addSellers(selectedCompanies);
-      navigate("/")
-
+      navigate("/");
     } catch (error) {
       console.error("Error:", error);
     }
@@ -40,7 +39,6 @@ const PermissionPage: React.FC = () => {
     <div className="landing-page-container">
       <Header1 />
       <div className="search-container">
-        <h3>Select all the brands whose services you use</h3>
         <div className="searchbox-wrapper">
           <div className="searchbox">
             <input
@@ -54,13 +52,16 @@ const PermissionPage: React.FC = () => {
           </div>
           <button className="filter-button">Filter</button>
         </div>
+        <h3>Select all the brands whose services you use</h3>
       </div>
       <div className="company-card-scroll-container">
         <CompanyCard onSelectionChange={handleSelection} />
       </div>
-      <button className="submit-button" onClick={handleSubmit}>
-        Submit
-      </button>
+      <div className="button-area">
+        <button className="submit-button" onClick={handleSubmit}>
+          Confirm
+        </button>
+      </div>
     </div>
   );
 };

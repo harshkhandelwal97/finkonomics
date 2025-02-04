@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "../styles/UserPhoneRegistration.css";
 import { verifyEmail } from "../service/authService"; // Make sure the path is correct
 import { useSearchParams, useNavigate } from "react-router-dom"; // Import useNavigate
-
+import logo1 from  "../assets/logo1.svg";
 const UserOtpScreen = () => {
   const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]);
   const [timeLeft, setTimeLeft] = useState(60);
@@ -75,10 +75,14 @@ const UserOtpScreen = () => {
 
   return (
     <div className="bg"> {/* Removed extra fragment */}
-      <h3>Check your Email for the OTP</h3>
       <div className="form-container">
         <div className="form-box">
+        <div className="logo1">
+        <img src = {logo1} alt = '_logo1'/>
+      </div>
+        <h3>Check your Email for the OTP</h3>
           <form>
+          <h4>Check your given email ID</h4>
             <div className="otp-boxes">
               {otp.map((digit, index) => (
                 <input

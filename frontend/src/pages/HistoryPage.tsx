@@ -33,7 +33,6 @@ const HistoryPage = () => {
     <div className="company-card-scroll-container1">
       <CompanyCard />
     </div>
-    <Footer1/>
   </div>
   );
 };

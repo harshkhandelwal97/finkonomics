@@ -41,7 +41,7 @@ import { UserPortfolio } from "../types/types";
                   <div className="brand-name">{seller.legalName} Points</div>
                 </div>
                 <span className="money-arrow">
-                  <div className="moneydetail">₹{Math.round(Number(seller.coinsAvailable) * Number(seller.currentExchangeRatio))}</div>
+                  <div className="moneydetail">₹ {Math.round(Number(seller.coinsAvailable) * Number(seller.currentExchangeRatio))}</div>
                   <button className="home-arrow">
                     <ArrowForwardIosIcon />
                   </button>

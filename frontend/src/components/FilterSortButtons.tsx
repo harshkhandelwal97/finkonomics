@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../styles/FileterSortButtons.css";
+import TuneIcon from '@mui/icons-material/Tune';
 
 const FilterSortButtons: React.FC = () => {
   const [selectedSort, setSelectedSort] = useState<string | null>(null);
@@ -11,7 +12,7 @@ const FilterSortButtons: React.FC = () => {
   return (
     <div className="filter-sort-container">
       <button className="filter-btn">
-        <span className="icon">⚙️</span> Sort by
+        <span className="icon"><TuneIcon sx = {{fontSize : 15}} /></span> Sort by
       </button>
 
       <div className="coins-value">
