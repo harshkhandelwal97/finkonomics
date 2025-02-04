@@ -836,7 +836,7 @@ router.get('/get-user-portfolio', authMiddleware, async (req, res) => {
 
 // Update User's Portfolio
 
-router.put('/update-companies', authMiddleware, async (req, res) => {
+router.put('/update-user-portfolio', authMiddleware, async (req, res) => {
   const { companyIds } = req.body; // Array of new sellerIds
   const userId = req.user.id; // Authenticated user's ID
 
@@ -847,7 +847,7 @@ router.put('/update-companies', authMiddleware, async (req, res) => {
 
     // Fetch the user's current portfolio
     const currentPortfolio = await pool.query(
-      'SELECT sellerId FROM "userPortfolio" WHERE userId = $1',
+      'SELECT "sellerId" FROM "userPortfolio" WHERE userId = $1',
       [userId]
     );
 
@@ -861,7 +861,7 @@ router.put('/update-companies', authMiddleware, async (req, res) => {
     // Insert added sellerIds
     for (const sellerId of addedSellerIds) {
       await pool.query(
-        'INSERT INTO "userSellersVisits" (sellerId, userId) VALUES ($1, $2)',
+        'INSERT INTO "userPortfolio" ("sellerId", "userId") VALUES ($1, $2)',
         [sellerId, userId]
       );
     }
