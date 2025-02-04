@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/notification.css";
-import { TabProps } from "../types/types";
+import { NotificationItem, TabProps } from "../types/types";
 
 export const Tab: React.FC<TabProps> = ({ label, isActive, onClick }) => {
   return (
@@ -16,7 +16,7 @@ export const Tab: React.FC<TabProps> = ({ label, isActive, onClick }) => {
   );
 };
 
-export const NotificationCard: React.FC<{ notification: NotificationCardProps }> = ({ notification }) => {
+export const NotificationCard: React.FC<{ notification: NotificationItem }> = ({ notification }) => {
   return (
     <div className="notificationCard">
       <div className="cardHeader">
