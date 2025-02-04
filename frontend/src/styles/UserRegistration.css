@@ -1,31 +1,28 @@
 /* userregister.css */
 .register-container {
+  background: linear-gradient(to bottom, #fffbcf, #ffffff) no-repeat;
+    background-size: 100% 15%;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f8f9fa;
+  /* background-color: #f8f9fa; */
   font-family: sans-serif;
 }
 
 .register-box {
-  background-color: #fff;
+  background-color:#FAFAFA;
   padding: 40px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
   width: 80%;
 }
 
-.logo-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 30px;
-}
+.logo1{
+    margin-left : 17%
+  }
 
-.logo {
-  max-width: 200px;
-  height: auto;
-}
+
 
 h1 {
   font-size: 28px;

@@ -4,7 +4,7 @@ import "../styles/UserPhoneRegistration.css";
 import { registerPhoneNo } from '../service/authService';
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
-
+import logo1 from  "../assets/logo1.svg";
 const PhoneNumberScreen: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState<number>(60); // Timer starts at 60 seconds
   const [isResendDisabled, setIsResendDisabled] = useState<boolean>(true);
@@ -48,9 +48,12 @@ const PhoneNumberScreen: React.FC = () => {
   return (
     <>
       <div className="bg">
-        <h3>Enter your Phone Number</h3>
         <div className="form-container">
           <div className="form-box">
+          <div className="logo1">
+        <img src = {logo1} alt = '_logo1'/>
+      </div>
+          <h3>You are just one step away</h3>
             <form>
             <div className="mobile-input-group">
             {/* <label>Mobile Number</label> */}

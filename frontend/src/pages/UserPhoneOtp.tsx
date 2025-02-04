@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import "../styles/UserPhoneRegistration.css"; // Import the CSS file
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { verifyPhoneNo } from '../service/authService';
-
+import logo1 from  "../assets/logo1.svg";
 const OTPScreenPhone: React.FC = () => {
   const [otp, setOtp] = useState<string[]>(['', '', '', '', '', '']);
   const [timeLeft, setTimeLeft] = useState<number>(60); // Timer starts at 60 seconds
@@ -68,9 +68,12 @@ const OTPScreenPhone: React.FC = () => {
 
   return (
     <div className="bg">
-      <h3>Check your Phone for the OTP</h3>
       <div className="form-container">
         <div className="form-box">
+        <div className="logo1">
+        <img src = {logo1} alt = '_logo1'/>
+      </div>
+      <h3>Check your Phone for the OTP</h3>
           <form>
             <div className="otp-boxes">
               {otp.map((digit, index) => (
