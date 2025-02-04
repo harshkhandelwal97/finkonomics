@@ -1,11 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import "../styles/UserPhoneRegistration.css"; // Import the CSS file
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { verifyPhoneNo } from '../service/authService';
 
 const OTPScreenPhone: React.FC = () => {
   const [otp, setOtp] = useState<string[]>(['', '', '', '', '', '']);
   const [timeLeft, setTimeLeft] = useState<number>(60); // Timer starts at 60 seconds
   const [isResendDisabled, setIsResendDisabled] = useState<boolean>(true);
   const inputRefs = useRef<HTMLInputElement[]>([]); // Store references to input boxes
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const seedId = searchParams.get("seedId") || "";
 
   useEffect(() => {
     if (timeLeft === 0) {
@@ -25,10 +30,19 @@ const OTPScreenPhone: React.FC = () => {
     setIsResendDisabled(true); // Disable Resend OTP button
     // Add logic to resend OTP
   };
-
-  const handleVerify = () => {
+  const handleVerify = async() => {
     const fullOtp = otp.join('');
     console.log('OTP entered:', fullOtp);
+    try {
+      const res = await verifyPhoneNo(seedId, fullOtp);
+  
+      navigate("/permissions");
+
+      localStorage.setItem("token", res.token)
+    } catch (error :any) {
+    
+      // Add logic to verify OTP
+    }
     // Add logic to verify OTP
   };
 

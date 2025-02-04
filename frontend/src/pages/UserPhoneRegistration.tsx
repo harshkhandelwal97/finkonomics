@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 // import "../styles/otp.css"; // Import the CSS file
 import "../styles/UserPhoneRegistration.css";
+import { registerPhoneNo } from '../service/authService';
+import { useSearchParams } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const PhoneNumberScreen: React.FC = () => {
-  const [phoneNumber, setPhoneNumber] = useState<string>(''); // Phone number state
   const [timeLeft, setTimeLeft] = useState<number>(60); // Timer starts at 60 seconds
   const [isResendDisabled, setIsResendDisabled] = useState<boolean>(true);
   const [mobileNumber, setMobileNumber] = useState('');
   const [countryCode, setCountryCode] = useState('+1');
-  const handleSubmit = (e:React.FormEvent) => {
-    e.preventDefault();
-    // console.log('Seller ID:', sellerId);
-    // console.log('Password:', password);
-    console.log('Mobile Number:', `${countryCode} ${mobileNumber}`);
-  };
+  const [searchParams] = useSearchParams();
+  const seedId = searchParams.get("seedId") || "";
+
+  const navigate = useNavigate();
   useEffect(() => {
     if (timeLeft === 0) {
       setIsResendDisabled(false); // Enable the Resend OTP button when timer reaches 0
@@ -32,9 +32,16 @@ const PhoneNumberScreen: React.FC = () => {
     setIsResendDisabled(true); // Disable the Resend OTP button again
     // Add logic to resend OTP
   };
+
+  
  
-  const handleVerify = () => {
-    console.log('Phone number entered:', phoneNumber);
+  const handleVerify = async() => {
+    try {
+      const res = await registerPhoneNo(seedId, mobileNumber)
+      navigate(res.redirectTo);
+    } catch (error:any) {
+      
+    }
     // Add logic to verify phone number or send OTP
   };
 
