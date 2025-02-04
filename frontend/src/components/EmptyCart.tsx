@@ -3,8 +3,15 @@ import { ActionButton } from "./ActionButton";
 import "../styles/emptyCart.css"
 
 import EmptyImage from "../assets/Locker.svg"
+import { useNavigate } from "react-router-dom";
 
 export const EmptyCart: React.FC = () => {
+
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate('/permissions?utm_medium=home')
+  }
   return (
     <div className="rewardsPage">
       {/* Homepage Component */}
@@ -22,7 +29,7 @@ export const EmptyCart: React.FC = () => {
         <p className="permissionsText">
           Allow us to combine all your reward points
         </p>
-        <span className="permissionsLink">Permissions</span>
+        {/* <span className="permissionsLink">Permissions</span> */}
       </div>
 
       {/* SVG Image */}
@@ -42,7 +49,7 @@ export const EmptyCart: React.FC = () => {
 
         {/* Action Button */}
         <div className="accessButton">
-          <ActionButton label="Give Access & Claim Rewards" variant="secondary" />
+          <ActionButton label="Give Access & Claim Rewards" variant="secondary" onClick={handleNavigate} />
         </div>
       </div>
     </div>
