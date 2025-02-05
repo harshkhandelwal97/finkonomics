@@ -25,6 +25,7 @@
     padding: 10px 15px;
     border-radius: 15px;
     transition: all 0.3s ease;
+    /* border: 2px solid red; */
   }
   
   .nav-item1
@@ -37,27 +38,34 @@
     padding: 10px 15px;
     border-radius: 15px;
     transition: all 0.3s ease;
-    height: 60px;
+    height: 75px;
+    border: none;
   }
   /* Icons */
   .icon {
     font-size: 24px;
     margin-bottom: 5px;
     transition: transform 0.3s ease;
+    border: none;
+    color: #A9A9A9;
+    /* border: 2px solid red; */
   }
   
   /* Labels */
   .label {
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 600;
     opacity: 0.8;
     transition: opacity 0.3s ease;
+    color: #A9A9A9;
+
   }
   
   /* Hover Effects */
   .nav-item:hover {
     /* background-color: #34495e; */
     transform: translateY(-5px);
+    /* color: aqua; */
   }
   
   .nav-item:hover .icon {
@@ -70,7 +78,7 @@
   
   /* Active State */
   .nav-item.active {
-    background-color: #3498db;
+    /* background-color: #0a0a0a; */
     color: #ffffff;
   }
   
@@ -80,4 +88,10 @@
   
   .nav-item.active .label {
     opacity: 1;
+  }
+
+  .active-css{
+    /* background-color: red; */
+    color: green;
+    
   }
