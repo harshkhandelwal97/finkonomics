@@ -46,7 +46,7 @@ const OTPScreenPhone: React.FC<{ path: string }> = ({ path }) => {
       } else if (path === 'register') {
         const res = await verifyPhoneNo(seedId, fullOtp);
 
-        navigate("/permissions?utm_source=registration");
+        navigate("/permissions?utm_medium=registration");
 
         localStorage.setItem("token", res.token)
         localStorage.setItem('name', res.name)
