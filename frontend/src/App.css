@@ -32,28 +32,14 @@
 } */
 
 .discount-gateway{
-  background-color: aqua; 
+  /* background-color: aqua;  */
   position: relative;
 }
 
 
-.discount-gateway .proceed-button{
+/* .discount-gateway .proceed-button{
   position: absolute;
   bottom: 0;
   background-color: white;
   width: 100%;
-}
-
-.discount-gateway .proceed-button button{
-  position: relative;
-  background-color: green;
-  border: none;
-  padding: 14px 0;
-  width: 80%;
-  border-radius: 8px;
-  color: white;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  margin: auto;
-}
+} */

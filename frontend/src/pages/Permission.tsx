@@ -43,10 +43,11 @@ const PermissionPage: React.FC = () => {
 
   const token = localStorage.getItem('token') || ""
   useEffect(() => {
-    if (!token || token === "") {
-      navigate("/login")
+    if (!token) {
+      navigate("/login");
     }
-  })
+  }, [token, navigate]); 
+  
 
   return (
     <div className="landing-page-container">
@@ -78,9 +79,10 @@ const PermissionPage: React.FC = () => {
           Confirm
         </button>
       </div>
-      <NavigationBar />
+    
     </div>
   );
 };
 
 export default PermissionPage;
+
