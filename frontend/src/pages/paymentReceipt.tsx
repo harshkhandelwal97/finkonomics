@@ -71,7 +71,8 @@ export const PaymentReceipt: React.FC = () => {
         try {
           const res = await transactionByFinko(payload);
           navigate(res.redirectTo);
-          localStorage.clear()
+          localStorage.removeItem('selectedSellers')
+          localStorage.removeItem('sid')
         } catch (error) {
           console.log(error)
         } finally {
@@ -93,7 +94,7 @@ export const PaymentReceipt: React.FC = () => {
     if (!token || token === "") {
       navigate("/login")
     }
-  })
+  },[navigate, token])
 
   return (
     <div>
