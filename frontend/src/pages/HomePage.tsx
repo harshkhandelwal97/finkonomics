@@ -6,6 +6,7 @@ import FilterSortButtons from "../components/FilterSortButtons";
 import { getUserPortfolio } from "../service/authService";
 import { EmptyCart } from "../components/EmptyCart";
 import { useNavigate } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 // import "../styles/emptyCart.css"
 // import { ActionButton } from "../components/ActionButton";
 
@@ -13,14 +14,18 @@ export const Homepage = () => {
 
   const token = localStorage.getItem('token') || ""
   const [userPortfolio, setUserPortfolio] = useState<UserPortfolio[]>([]);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState<boolean>();
 
   const fetchUserPortfolio = async () => {
+    setLoading(true)
     try {
       const res = await getUserPortfolio();
       setUserPortfolio(res.sellers);
     } catch (error) {
       console.error("Error fetching user portfolio:", error);
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -41,13 +46,13 @@ export const Homepage = () => {
       (total, portfolio) =>
         total +
         (parseInt(portfolio.coinsAvailable, 10) || 0) *
-          (parseFloat(portfolio.currentExchangeRatio) || 0),
+        (parseFloat(portfolio.currentExchangeRatio) || 0),
       0
     )
   );
 
   useEffect(() => {
-    if(!token || token === ""){
+    if (!token || token === "") {
       navigate("/login")
     }
   })
@@ -69,7 +74,7 @@ export const Homepage = () => {
               </div>
               <button
                 className="action-button store-button"
-                // onClick={handleStoreButtonClick}
+              // onClick={handleStoreButtonClick}
               >
                 Use in store
               </button>
@@ -90,14 +95,23 @@ export const Homepage = () => {
         </div>
       </div>
       {/* <SwipeableEdgeDrawer open={isDrawerOpen} onClose={handleDrawerClose} /> */}
-      {totalCoins === 0 && Number(totalValue) === 0 ? (
-        <EmptyCart />
+
+      {loading ? (
+        <>
+          <CircularProgress />
+        </>
       ) : (
         <>
-          <FilterSortButtons />
-          <div className="company-card-scroll-container1">
-            <CompanyCardHome userPortfolio={userPortfolio} />
-          </div>
+          {totalCoins === 0 && Number(totalValue) === 0 ? (
+            <EmptyCart />
+          ) : (
+            <>
+              <FilterSortButtons />
+              <div className="company-card-scroll-container1">
+                <CompanyCardHome userPortfolio={userPortfolio} />
+              </div>
+            </>
+          )}
         </>
       )}
     </div>
