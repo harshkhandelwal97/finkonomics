@@ -10,7 +10,7 @@ import TuneIcon from '@mui/icons-material/Tune';
 const PermissionPage: React.FC = () => {
   const [selectedCompanies, setSelectedCompanies] = useState<string[]>([]);
   const [searchParams] = useSearchParams();
-  const medium = searchParams.get('utm_source') || ""
+  const medium = searchParams.get('utm_medium') || ""
 
   // Function to update selected companies
   const handleSelection = (id: string) => {
