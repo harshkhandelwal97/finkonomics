@@ -3,14 +3,14 @@ import "../styles/companycardHome.css";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import Avatar from "@mui/material/Avatar";   
+import Avatar from "@mui/material/Avatar";
 import { UserPortfolio } from "../types/types";
 // const CompanyCardHome = (userPortfolio: UserPortfolio[]) => {
-  interface CompanyCardHomeProps {
-    userPortfolio: UserPortfolio[];
-  }
-  
-  const CompanyCardHome: React.FC<CompanyCardHomeProps> = ({userPortfolio}) => { // Destructure props
+interface CompanyCardHomeProps {
+  userPortfolio: UserPortfolio[];
+}
+
+const CompanyCardHome: React.FC<CompanyCardHomeProps> = ({ userPortfolio }) => { // Destructure props
   return (
     <div className="company-outer-box1">
       <div className="company-card-container">
@@ -21,9 +21,9 @@ import { UserPortfolio } from "../types/types";
                 <div>Qty = {seller.coinsAvailable}</div>
                 <div className="point-info">
                   <div>1 point = ₹{seller.currentExchangeRatio} </div>
-                  <div>
-                    <InfoOutlinedIcon sx={{ width: 15 }} />
-                  </div>
+
+                  <InfoOutlinedIcon sx={{ width: 20}} />
+
                 </div>
               </div>
 
@@ -35,7 +35,7 @@ import { UserPortfolio } from "../types/types";
                     <Avatar
                       alt="Remy Sharp"
                       src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload/${seller.logo}`}
-                      sx={{ width: 32, height: 32 }}
+                      sx={{ width: 35, height: 35, borderRadius: "10px" }}
                     />
                   </div>
                   <div className="brand-name">{seller.legalName} Points</div>
@@ -43,7 +43,7 @@ import { UserPortfolio } from "../types/types";
                 <span className="money-arrow">
                   <div className="moneydetail">₹ {Math.round(Number(seller.coinsAvailable) * Number(seller.currentExchangeRatio))}</div>
                   <button className="home-arrow">
-                    <ArrowForwardIosIcon />
+                    <ArrowForwardIosIcon sx={{ padding: "6px", fontSize: "15px", color: "white" }} />
                   </button>
                 </span>
               </div>
@@ -51,7 +51,7 @@ import { UserPortfolio } from "../types/types";
               <div className="expiry-info">
                 {/* {seller.companyPointsLogo} */}
                 {seller.coinName}
-             
+
               </div>
               {/* <div className="company-info">
                 <span className="company-pts"> Qty= {item.points}</span>

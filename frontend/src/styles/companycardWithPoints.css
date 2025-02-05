@@ -87,7 +87,7 @@
     /* Enable vertical scrolling */
     padding: 10px;
     width: 100%;
-    max-width: 800px;
+    /* max-width: 800px; */
   }
   
   .company-exchange1

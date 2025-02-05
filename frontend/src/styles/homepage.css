@@ -108,11 +108,11 @@
     font-weight: 500;
   }
 
-  .company-card-scroll-container1 {
+  .home-main-page .company-card-scroll-container1 {
     overflow-y: hidden;
     padding: 10px;
-    width: 100%;
-    max-width: 800px;
+    /* width: 100%; */
+    /* max-width: 800px; */
     margin: 0 auto;
     /* background-color: #BACD9A; */
     /* border-top-right-radius: 0px; */

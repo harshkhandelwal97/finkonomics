@@ -6,7 +6,9 @@
   /* padding-top: 24px; */
   width: 100%;
   /* background-color: red; */
-  margin-left: 10px;
+  /* margin-left: 10px; */
+  margin-bottom: 60px;
+  padding: 10px;
 }
 
 .company-outer-box1 .company-card-container .company-item {
@@ -15,10 +17,10 @@
   padding: 16px;
   border-radius: 16px;
   background-color: #fffad8;
-  gap: 8px;
-  margin-bottom: 16px;
   width: 80%;
   margin: auto;
+  margin-top: 12px;
+
 }
 
 .company-outer-box1 .company-card-container .qty-point {
@@ -26,6 +28,8 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin-bottom: 10px;
+
 }
 
 .company-outer-box1 .company-card-container .company-item .brand-logo {
@@ -33,6 +37,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  margin-bottom: 10px;
 }
 .company-outer-box1
   .company-card-container
@@ -70,9 +75,9 @@
 
 .point-info {
   display: flex;
-  /* border: 2px solid; */
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
 }
 
 .money-arrow {
