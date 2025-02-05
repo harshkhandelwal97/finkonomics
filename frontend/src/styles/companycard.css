@@ -10,7 +10,7 @@
   max-width: 100%;
   /* margin: 20px; */
   margin-top: 20px;
-  margin-left: 20px;
+  margin-left: 2px;
   /* margin-bottom: 20px; */
   align-items: center;
   /* border: 2px solid; */
@@ -117,7 +117,7 @@
 .company-card-scroll-container {
   /* overflow-y: hidden; */
   /* padding: 10px; */
-  width: 100%;
+  /* width: 100%; */
   /* max-width: 800px; */
   /* margin: 0 auto; */
   background-color: #BACD9A;
@@ -157,5 +157,5 @@ margin-left: 40%
   justify-content: center;
   /* border: 2px solid rgb(15, 7, 7); */
   margin-top: 8px;
-  margin-bottom: 72px;
+  margin-bottom: 75px;
 }

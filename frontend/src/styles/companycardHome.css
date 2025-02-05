@@ -1,8 +1,12 @@
 .company-outer-box1 {
-  background-color: #bacd9a;
+  /* background-color: #bacd9a; */
+  /* background-color: none; */
   border-radius: 32px 32px 0px 0px;
   /* padding: 20px; */
-  padding-top: 24px;
+  /* padding-top: 24px; */
+  width: 100%;
+  /* background-color: red; */
+  margin-left: 10px;
 }
 
 .company-outer-box1 .company-card-container .company-item {
@@ -12,8 +16,9 @@
   border-radius: 16px;
   background-color: #fffad8;
   gap: 8px;
-  margin-bottom:16px;
-  /* border-color: aqua; */
+  margin-bottom: 16px;
+  width: 80%;
+  margin: auto;
 }
 
 .company-outer-box1 .company-card-container .qty-point {
@@ -29,25 +34,33 @@
   justify-content: space-between;
   width: 100%;
 }
-.company-outer-box1 .company-card-container .company-item .brand-logo .brand-logo-name {
+.company-outer-box1
+  .company-card-container
+  .company-item
+  .brand-logo
+  .brand-logo-name {
   display: flex;
-  align-items:center;
-  justify-content:space-between ;
+  align-items: center;
+  justify-content: space-between;
   /* width: 30%; */
   /* border: 1px solid; */
 }
 
-.company-outer-box1 .company-card-container .company-item .brand-logo .brand-logo-name .brand-name {
+.company-outer-box1
+  .company-card-container
+  .company-item
+  .brand-logo
+  .brand-logo-name
+  .brand-name {
   display: flex;
-  align-items:center;
-  justify-content:space-between ;
+  align-items: center;
+  justify-content: space-between;
   /* width: 30%; */
-  margin-left: 5px;
+  margin-left: 8px;
   /* border: 1px solid; */
 }
 
-.home-arrow
-{
+.home-arrow {
   /* border: 2px solid; */
   background-color: #368455;
   border-radius: 8px;
@@ -55,30 +68,24 @@
   margin-left: 5px;
 }
 
-.point-info
-{
-  
+.point-info {
   display: flex;
   /* border: 2px solid; */
   align-items: center;
   justify-content: space-between;
 }
 
-.money-arrow
-{
+.money-arrow {
   /* border: 2px solid; */
   display: flex;
   align-items: center;
-  
 }
-.moneydetail
-{
-  font-size: larger ;
+.moneydetail {
+  font-size: larger;
   font-weight: bold;
 }
 
-
-.company-outer-box1 .company-card-container .expiry-info{
+.company-outer-box1 .company-card-container .expiry-info {
   text-align: left;
   width: 100%;
 }
@@ -91,7 +98,6 @@
 .company-name {
   font-size: 19px;
   font-weight: bold;
-  margin: 2px;
 }
 
 .company-pts {
@@ -103,7 +109,7 @@
 .landing-page-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  /* height: 100vh; */
   overflow: hidden;
   /* Prevent the entire page from scrolling */
 }
@@ -112,7 +118,7 @@
   flex-grow: 1; /* Take up remaining space */
   overflow-y: auto;
   /* Enable vertical scrolling */
-  padding: 10px;
+  padding: 16px;
   width: 100%;
   max-width: 800px;
 }
@@ -133,13 +139,11 @@
   font-size: x-large;
 }
 
-
-
-
-
-
-
-
+.discount-gateway {
+  /* border: 2px solid red; */
+  /* height: 100vh; */
+  /* background-color: greenyellow; */
+}
 
 /* this is for history page */
 
@@ -155,4 +159,30 @@
   margin-bottom: 8px;
   background-color: #fffad8;
   overflow: hidden;
+}
+
+.proceed-button {
+  border: none;
+  border-radius: 8px;
+  padding: 13px 0;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  margin-top: 12px;
+}
+
+.discount-gateway .proceed-button button {
+  position: relative;
+  background-color: green;
+  border: none;
+  padding: 14px 0;
+  width: 80%;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  margin: auto;
 }
