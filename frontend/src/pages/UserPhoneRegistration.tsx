@@ -4,12 +4,14 @@ import "../styles/UserPhoneRegistration.css";
 import { registerPhoneNo } from '../service/authService';
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
-import logo1 from  "../assets/logo1.svg";
+import logo1 from "../assets/logo1.svg";
+import PageLoader from '@/components/PageLoader';
 const PhoneNumberScreen: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState<number>(60); // Timer starts at 60 seconds
   const [isResendDisabled, setIsResendDisabled] = useState<boolean>(true);
   const [mobileNumber, setMobileNumber] = useState('');
-  const [countryCode, setCountryCode] = useState('+1');
+  const [countryCode, setCountryCode] = useState('+91');
+  const [loading, setLoading] = useState<boolean>();
   const [searchParams] = useSearchParams();
   const seedId = searchParams.get("seedId") || "";
 
@@ -33,52 +35,53 @@ const PhoneNumberScreen: React.FC = () => {
     // Add logic to resend OTP
   };
 
-  
- 
-  const handleVerify = async() => {
+  const handleVerify = async () => {
+    setLoading(true)
     try {
       const res = await registerPhoneNo(seedId, mobileNumber)
       navigate(res.redirectTo);
     } catch (error) {
       console.log(error);
-      
+    } finally {
+      setLoading(false)
     }
     // Add logic to verify phone number or send OTP
   };
 
   return (
     <>
+      {loading && <PageLoader />}
       <div className="bg">
         <div className="form-container">
           <div className="form-box">
-          <div className="logo1">
-        <img src = {logo1} alt = '_logo1'/>
-      </div>
-          <h3>You are just one step away</h3>
-            <form>
-            <div className="mobile-input-group">
-            {/* <label>Mobile Number</label> */}
-            <div className="mobile-wrapper">
-              <select
-                className="country-code"
-                value={countryCode}
-                onChange={(e) => setCountryCode(e.target.value)}
-              >
-                <option value="+1">+1 (USA)</option>
-                <option value="+91">+91 (India)</option>
-                <option value="+44">+44 (UK)</option>
-                <option value="+61">+61 (Australia)</option>
-                <option value="+81">+81 (Japan)</option>
-              </select>
-              <input
-                type="tel"
-                placeholder="Mobile Number"
-                value={mobileNumber}
-                onChange={(e) => setMobileNumber(e.target.value)}
-                required
-              />
+            <div className="logo1">
+              <img src={logo1} alt='_logo1' />
             </div>
-          </div>
+            <h3>You are just one step away</h3>
+            <form>
+              <div className="mobile-input-group">
+                {/* <label>Mobile Number</label> */}
+                <div className="mobile-wrapper">
+                  <select
+                    className="country-code"
+                    value={countryCode}
+                    onChange={(e) => setCountryCode(e.target.value)}
+                  >
+                    <option value="+1">+1 (USA)</option>
+                    <option value="+91">+91 (India)</option>
+                    <option value="+44">+44 (UK)</option>
+                    <option value="+61">+61 (Australia)</option>
+                    <option value="+81">+81 (Japan)</option>
+                  </select>
+                  <input
+                    type="tel"
+                    placeholder="Mobile Number"
+                    value={mobileNumber}
+                    onChange={(e) => setMobileNumber(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
               <div className="bottom-section">
                 <div className="timer">
                   {Math.floor(timeLeft / 60)}:{('0' + (timeLeft % 60)).slice(-2)}

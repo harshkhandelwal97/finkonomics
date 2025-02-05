@@ -3,14 +3,17 @@ import "../styles/UserPhoneRegistration.css"; // Import the CSS file
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { verifyLoginOtp, verifyPhoneNo } from '../service/authService';
 import logo1 from "../assets/logo1.svg";
+import PageLoader from '@/components/PageLoader';
 const OTPScreenPhone: React.FC<{ path: string }> = ({ path }) => {
   const [otp, setOtp] = useState<string[]>(['', '', '', '', '', '']);
   const [timeLeft, setTimeLeft] = useState<number>(60); // Timer starts at 60 seconds
   const [isResendDisabled, setIsResendDisabled] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>();
   const inputRefs = useRef<HTMLInputElement[]>([]); // Store references to input boxes
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const seedId = searchParams.get("seedId") || "";
+
 
   useEffect(() => {
     if (timeLeft === 0) {
@@ -34,6 +37,8 @@ const OTPScreenPhone: React.FC<{ path: string }> = ({ path }) => {
     const fullOtp = otp.join('');
     try {
 
+      setLoading(true)
+
       if (path === 'login') {
         const res = await verifyLoginOtp(seedId, fullOtp);
 
@@ -55,6 +60,8 @@ const OTPScreenPhone: React.FC<{ path: string }> = ({ path }) => {
     } catch (error) {
       console.log(error)
       // Add logic to verify OTP
+    } finally {
+      setLoading(false)
     }
     // Add logic to verify OTP
   };
@@ -85,6 +92,7 @@ const OTPScreenPhone: React.FC<{ path: string }> = ({ path }) => {
 
   return (
     <div className="bg">
+      {loading && <PageLoader />}
       <div className="form-container">
         <div className="form-box">
           <div className="logo1">

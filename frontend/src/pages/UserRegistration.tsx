@@ -5,6 +5,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import logo from  "../assets/logo.svg";
 import { registerService } from '../service/authService';
+import PageLoader from '@/components/PageLoader';
 // Interface for validation errors
 interface Errors {
   fullName?: string;
@@ -22,6 +23,7 @@ const UserRegistrationPage: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errors, setErrors] = useState<Errors>({});
   const [apiError, setApiError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>();
   const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
@@ -40,6 +42,7 @@ const UserRegistrationPage: React.FC = () => {
 
     if (Object.keys(validationErrors).length === 0) {
       try {
+        setLoading(true);
         const response = await registerService(fullName, email, password);
         console.log("Registration successful:", response);
         navigate(response.redirectTo); // Your redirection path
@@ -53,6 +56,8 @@ const UserRegistrationPage: React.FC = () => {
         } else {
           setApiError("An error occurred during registration.");
         }
+      }finally{
+        setLoading(true);
       }
     }
   };
@@ -91,6 +96,7 @@ const UserRegistrationPage: React.FC = () => {
 
   return (
     <div className="register-container">
+      {loading && <PageLoader />}
       <div className="register-box">
       <div className="logo">
         <img src = {logo} alt = '_logo'/>

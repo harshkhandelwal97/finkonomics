@@ -3,12 +3,14 @@ import "../styles/login.css"; // Import CSS file for styling
 import logo from "../assets/logo.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { loginService } from "../service/authService";
+import PageLoader from "@/components/PageLoader";
 
 const UserLoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [countryCode, setCountryCode] = useState("+91"); // Default country code
+  const [loading, setLoading] = useState<boolean>();
   const [errors, setErrors] = useState({
     email: "",
     password: "",
@@ -77,23 +79,27 @@ const UserLoginPage = () => {
     }
 
     try {
+      setLoading(true)
       const res = await loginService(email, password, mobileNumber);
       if (loginMethod === 'email') {
         localStorage.setItem('token', res.token)
         localStorage.setItem('name', res.name)
         localStorage.setItem('id', res.id)
         navigate('/')
-      }else if(loginMethod === 'mobile'){
+      } else if (loginMethod === 'mobile') {
         navigate(res.redirectTo)
       }
 
     } catch (error) {
       console.log(error)
+    } finally {
+      setLoading(false)
     }
   };
 
   return (
     <div className="login-container">
+      {loading && <PageLoader />}
       <div className="login-box">
         <div className="logo">
           <img src={logo} alt="_logo" />

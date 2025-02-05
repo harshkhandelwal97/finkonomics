@@ -4,18 +4,20 @@ import React, { useState, useEffect, useRef } from "react";
 import "../styles/UserPhoneRegistration.css";
 import { verifyEmail } from "../service/authService"; // Make sure the path is correct
 import { useSearchParams, useNavigate } from "react-router-dom"; // Import useNavigate
-import logo1 from  "../assets/logo1.svg";
+import logo1 from "../assets/logo1.svg";
+import PageLoader from "@/components/PageLoader";
 const UserOtpScreen = () => {
   const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]);
   const [timeLeft, setTimeLeft] = useState(60);
   const [isResendDisabled, setIsResendDisabled] = useState(true);
   const inputRefs = useRef<HTMLInputElement[]>([]);
   const [apiError, setApiError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>();
   const [searchParams] = useSearchParams();
   const seedId = searchParams.get("seedId") || "";
   const navigate = useNavigate(); // Initialize useNavigate
 
-  
+
 
   useEffect(() => {
     // Define timerId with type
@@ -41,8 +43,7 @@ const UserOtpScreen = () => {
   const handleVerify = async () => {
     const fullOtp = otp.join("");
     try {
-
-      console.log(seedId)
+      setLoading(true)
       const res = await verifyEmail(seedId, fullOtp);
       navigate(res.redirectTo); // Use navigate for redirection
     } catch (error: any) { //Unexpected any. Specify a different type
@@ -53,6 +54,8 @@ const UserOtpScreen = () => {
       } else {
         setApiError("An error occurred during verification.");
       }
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -75,15 +78,16 @@ const UserOtpScreen = () => {
   };
 
   return (
-    <div className="bg"> {/* Removed extra fragment */}
+    <div className="bg">
+      {loading && <PageLoader />}
       <div className="form-container">
         <div className="form-box">
-        <div className="logo1">
-        <img src = {logo1} alt = '_logo1'/>
-      </div>
-        <h3>Check your Email for the OTP</h3>
+          <div className="logo1">
+            <img src={logo1} alt='_logo1' />
+          </div>
+          <h3>Check your Email for the OTP</h3>
           <form>
-          <h4>Check your given email ID</h4>
+            <h4>Check your given email ID</h4>
             <div className="otp-boxes">
               {otp.map((digit, index) => (
                 <input
