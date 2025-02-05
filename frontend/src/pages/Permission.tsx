@@ -5,7 +5,6 @@ import CompanyCard from "../components/companycard";
 import { useEffect, useState } from "react";
 import { addSellers, updateUserPorfolio } from "../service/authService";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import NavigationBar from "./Navigationbar";
 import TuneIcon from '@mui/icons-material/Tune';
 const PermissionPage: React.FC = () => {
   const [selectedCompanies, setSelectedCompanies] = useState<string[]>([]);

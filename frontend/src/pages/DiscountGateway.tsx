@@ -6,8 +6,6 @@ import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { Avatar } from "@mui/material";
-import CompanyCardHome from "../components/companycardHome";
-
 import "../styles/companycardHome.css";
 
 export default function DiscountGateway() {
