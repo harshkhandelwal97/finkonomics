@@ -33,7 +33,6 @@ export default function DiscountGateway() {
         }
     };
 
-    /** Handles selection of sellers and updates discount calculation */
     const handleCheckboxChange = (seller: UserPortfolio) => {
         setSelectedSellers(prev => {
             const isSelected = prev.some(item => item.id === seller.id);
@@ -43,17 +42,20 @@ export default function DiscountGateway() {
                 // Remove seller if already selected
                 updatedSellers = prev.filter(item => item.id !== seller.id);
             } else {
-                // Calculate discount from this seller and add
-                const sellerDiscount = Math.min(amount, Math.round(parseInt(seller.coinsAvailable) * parseInt(seller.currentExchangeRatio)));
-                updatedSellers = [...prev, { id: seller.id, discount: sellerDiscount, legalName : seller.legalName, logo: seller.logo }];
+                // Calculate current total discount
+                const currentTotal = prev.reduce((acc, curr) => acc + curr.discount, 0);
+                const sellerDiscount = Math.min(amount - currentTotal, Math.round(Number(seller.coinsAvailable) * Number(seller.currentExchangeRatio)));
+
+                // Ensure that adding the seller does not exceed the required amount
+                updatedSellers = [...prev, { id: seller.id, discount: sellerDiscount, logo: seller.logo, legalName: seller.legalName }];
             }
 
-            // Update total discount and final amount
+            // Calculate new total discount and final payable amount
             const newDiscountTotal = updatedSellers.reduce((acc, curr) => acc + curr.discount, 0);
             setDiscountTotal(newDiscountTotal);
             setFinalAmount(amount - newDiscountTotal);
 
-            // Store in localStorage
+            // Store updated selection in localStorage
             localStorage.setItem("selectedSellers", JSON.stringify(updatedSellers));
 
             return updatedSellers;
@@ -69,13 +71,13 @@ export default function DiscountGateway() {
 
 
     const token = localStorage.getItem('token') || ""
-  
-  
+
+
     useEffect(() => {
-      if (!token || token === "") {
-        navigate("/login")
-      }
-    })
+        if (!token || token === "") {
+            navigate("/login")
+        }
+    },[token, navigate])
 
     return (
         <div className="discount-gateway">
@@ -83,7 +85,7 @@ export default function DiscountGateway() {
             <div className="container">
                 <PaymentDetails
                     amount={`₹${amount}`}
-                    discount={`-₹${discountTotal}`} 
+                    discount={`-₹${discountTotal}`}
                     finalAmount={`₹${finalAmount}`}
                     time="9:25"
                     merchant={lg}
@@ -111,7 +113,7 @@ export default function DiscountGateway() {
                                             <div className="avatar-image">
                                                 <Avatar
                                                     alt={seller.legalName}
-                                                    src={`https://res.cloudinary.com/${import.meta.env.CLOUDINARY_CLOUD_NAME}/image/upload/${seller.logo}`}
+                                                    src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload/${seller.logo}`}
                                                     sx={{ width: 32, height: 32 }}
                                                 />
                                             </div>
@@ -125,6 +127,7 @@ export default function DiscountGateway() {
                                                     className="company-checkbox"
                                                     checked={isChecked}
                                                     onChange={() => handleCheckboxChange(seller)}
+                                                    disabled={!isChecked && discountTotal >= amount}
                                                 />
                                             </div>
                                         </span>
