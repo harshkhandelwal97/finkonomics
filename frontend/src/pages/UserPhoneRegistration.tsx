@@ -5,7 +5,7 @@ import { registerPhoneNo } from '../service/authService';
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import logo1 from "../assets/logo1.svg";
-import PageLoader from '@/components/PageLoader';
+import PageLoader from '../components/PageLoader';
 const PhoneNumberScreen: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState<number>(60); // Timer starts at 60 seconds
   const [isResendDisabled, setIsResendDisabled] = useState<boolean>(true);

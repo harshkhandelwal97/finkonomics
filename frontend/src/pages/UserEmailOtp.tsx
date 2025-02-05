@@ -5,7 +5,7 @@ import "../styles/UserPhoneRegistration.css";
 import { verifyEmail } from "../service/authService"; // Make sure the path is correct
 import { useSearchParams, useNavigate } from "react-router-dom"; // Import useNavigate
 import logo1 from "../assets/logo1.svg";
-import PageLoader from "@/components/PageLoader";
+import PageLoader from "../components/PageLoader";
 const UserOtpScreen = () => {
   const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]);
   const [timeLeft, setTimeLeft] = useState(60);

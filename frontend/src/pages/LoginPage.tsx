@@ -3,7 +3,7 @@ import "../styles/login.css"; // Import CSS file for styling
 import logo from "../assets/logo.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { loginService } from "../service/authService";
-import PageLoader from "@/components/PageLoader";
+import PageLoader from "../components/PageLoader";
 
 const UserLoginPage = () => {
   const [email, setEmail] = useState("");

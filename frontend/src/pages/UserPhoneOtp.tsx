@@ -3,7 +3,7 @@ import "../styles/UserPhoneRegistration.css"; // Import the CSS file
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { verifyLoginOtp, verifyPhoneNo } from '../service/authService';
 import logo1 from "../assets/logo1.svg";
-import PageLoader from '@/components/PageLoader';
+import PageLoader from '../components/PageLoader';
 const OTPScreenPhone: React.FC<{ path: string }> = ({ path }) => {
   const [otp, setOtp] = useState<string[]>(['', '', '', '', '', '']);
   const [timeLeft, setTimeLeft] = useState<number>(60); // Timer starts at 60 seconds

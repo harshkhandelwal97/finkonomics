@@ -5,7 +5,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import logo from  "../assets/logo.svg";
 import { registerService } from '../service/authService';
-import PageLoader from '@/components/PageLoader';
+import PageLoader from '../components/PageLoader';
 // Interface for validation errors
 interface Errors {
   fullName?: string;
