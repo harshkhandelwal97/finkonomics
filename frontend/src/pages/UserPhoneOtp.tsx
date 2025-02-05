@@ -8,7 +8,7 @@ const OTPScreenPhone: React.FC<{ path: string }> = ({ path }) => {
   const [otp, setOtp] = useState<string[]>(['', '', '', '', '', '']);
   const [timeLeft, setTimeLeft] = useState<number>(60); // Timer starts at 60 seconds
   const [isResendDisabled, setIsResendDisabled] = useState<boolean>(true);
-  const [loading, setLoading] = useState<boolean>();
+  const [loading, setLoading] = useState<boolean>(false);
   const inputRefs = useRef<HTMLInputElement[]>([]); // Store references to input boxes
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();

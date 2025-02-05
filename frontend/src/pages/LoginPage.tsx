@@ -10,7 +10,7 @@ const UserLoginPage = () => {
   const [password, setPassword] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [countryCode, setCountryCode] = useState("+91"); // Default country code
-  const [loading, setLoading] = useState<boolean>();
+  const [loading, setLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState({
     email: "",
     password: "",

@@ -11,7 +11,7 @@ const PhoneNumberScreen: React.FC = () => {
   const [isResendDisabled, setIsResendDisabled] = useState<boolean>(true);
   const [mobileNumber, setMobileNumber] = useState('');
   const [countryCode, setCountryCode] = useState('+91');
-  const [loading, setLoading] = useState<boolean>();
+  const [loading, setLoading] = useState<boolean>(false);
   const [searchParams] = useSearchParams();
   const seedId = searchParams.get("seedId") || "";
 

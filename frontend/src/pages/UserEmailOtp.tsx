@@ -12,7 +12,7 @@ const UserOtpScreen = () => {
   const [isResendDisabled, setIsResendDisabled] = useState(true);
   const inputRefs = useRef<HTMLInputElement[]>([]);
   const [apiError, setApiError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>();
+  const [loading, setLoading] = useState<boolean>(false);
   const [searchParams] = useSearchParams();
   const seedId = searchParams.get("seedId") || "";
   const navigate = useNavigate(); // Initialize useNavigate
