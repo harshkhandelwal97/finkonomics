@@ -14,7 +14,6 @@ const client = twilio(accountSid, authToken);
 const authMiddleware = require("../middleware/auth");
 const pool = require("../database/connection");
 const sendMail = require("../utils/nodemailer");
-
 // User registration
 
 router.post('/register', async (req, res) => {
@@ -166,7 +165,7 @@ router.post('/verify-phone', async (req, res) => {
     // Generate a JWT token or set a cookie for the user
     const token = jwt.sign({ id: user.rows[0].id, entity: "seller" }, process.env.JWT_AUTH_SECRET, { expiresIn: '7d' });
 
-    res.status(200).json({ message: 'Phone number verified successfully', token, id: userId, name:  user.rows[0].fullname });
+    res.status(200).json({ message: 'Phone number verified successfully', token, id: userId, name: user.rows[0].fullname });
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ message: err.message || 'Server error' });
@@ -176,83 +175,83 @@ router.post('/verify-phone', async (req, res) => {
 // router for resend the otp at email 
 router.get("/resend-email-otp", async (req, res) => {
   try {
-      const { email } = req.query;
+    const { email } = req.query;
 
-      if (!email) {
-          return res.status(400).json({ message: "Email is required" });
-      }
+    if (!email) {
+      return res.status(400).json({ message: "Email is required" });
+    }
 
-      // Check if the email exists in the database
-      const user = await pool.query('SELECT * FROM "users" WHERE email = $1', [email]);
+    // Check if the email exists in the database
+    const user = await pool.query('SELECT * FROM "users" WHERE email = $1', [email]);
 
-      if (user.rows.length === 0) {
-          return res.status(404).json({ message: "Email not found" });
-      }
+    if (user.rows.length === 0) {
+      return res.status(404).json({ message: "Email not found" });
+    }
 
-      // Generate a new OTP
-      const otp = crypto.randomInt(100000, 999999).toString();
-      const tokenExpires = new Date(Date.now() + 300000); // 5 minutes
+    // Generate a new OTP
+    const otp = crypto.randomInt(100000, 999999).toString();
+    const tokenExpires = new Date(Date.now() + 300000); // 5 minutes
 
-      console.log({ location: "/resend-email-otp", otp });
+    console.log({ location: "/resend-email-otp", otp });
 
-      // Send OTP via email
-      const subject = "Resend OTP - Verify Your Email";
-      const text = `Hello, here is your new OTP.`;
-      const html = `<p>Hello, your new OTP is <strong>${otp}</strong></p>`;
+    // Send OTP via email
+    const subject = "Resend OTP - Verify Your Email";
+    const text = `Hello, here is your new OTP.`;
+    const html = `<p>Hello, your new OTP is <strong>${otp}</strong></p>`;
 
-      await sendMail(email, subject, text, html);
+    await sendMail(email, subject, text, html);
 
-      // Update the OTP in the database
-      await pool.query(
-          'UPDATE "users" SET "verificationToken" = $1, "verificationTokenExpires" = $2 WHERE email = $3',
-          [otp, tokenExpires, email]
-      );
+    // Update the OTP in the database
+    await pool.query(
+      'UPDATE "users" SET "verificationToken" = $1, "verificationTokenExpires" = $2 WHERE email = $3',
+      [otp, tokenExpires, email]
+    );
 
-      res.json({ message: "New OTP has been sent to your registered email" });
+    res.json({ message: "New OTP has been sent to your registered email" });
   } catch (error) {
-      console.error(error.message);
-      res.status(500).json({ message: "Server error" });
+    console.error(error.message);
+    res.status(500).json({ message: "Server error" });
   }
 });
 
 router.get('/resend-phone-otp', async (req, res) => {
   try {
-      const { phoneNumber } = req.query;
+    const { phoneNumber } = req.query;
 
-      if (!phoneNumber) {
-          return res.status(400).json({ message: 'Phone number is required' });
-      }
+    if (!phoneNumber) {
+      return res.status(400).json({ message: 'Phone number is required' });
+    }
 
-      // Check if the phone number exists in the database
-      const user = await pool.query('SELECT * FROM "users" WHERE "phoneNumber" = $1', [phoneNumber]);
+    // Check if the phone number exists in the database
+    const user = await pool.query('SELECT * FROM "users" WHERE "phoneNumber" = $1', [phoneNumber]);
 
-      if (user.rows.length === 0) {
-          return res.status(404).json({ message: 'Phone number not found' });
-      }
+    if (user.rows.length === 0) {
+      return res.status(404).json({ message: 'Phone number not found' });
+    }
 
-      // Generate a new OTP
-      const otp = crypto.randomInt(100000, 999999).toString();
-      const tokenExpires = new Date(Date.now() + 300000); // 5 minutes
+    // Generate a new OTP
+    const otp = crypto.randomInt(100000, 999999).toString();
+    const tokenExpires = new Date(Date.now() + 300000); // 5 minutes
 
-      console.log({ location: '/resend-phone-otp', otp });
+    console.log({ location: '/resend-phone-otp', otp });
 
-      // Send OTP via Twilio SMS
-      // await client.messages.create({
-      //     body: `Your new verification code is: ${otp}`,
-      //     from: twilioPhoneNumber,
-      //     to: phoneNumber
-      // });
+    // Send OTP via Twilio SMS
+    // await client.messages.create({
+    //     body: `Your new verification code is: ${otp}`,
+    //     from: twilioPhoneNumber,
+    //     to: phoneNumber
+    // });
 
-      // Update the OTP in the database
-      await pool.query(
-          'UPDATE users SET "verificationToken" = $1, "verificationTokenExpires" = $2 WHERE "phoneNumber" = $3',
-          [otp, tokenExpires, phoneNumber]
-      );
+    // Update the OTP in the database
+    await pool.query(
+      'UPDATE users SET "verificationToken" = $1, "verificationTokenExpires" = $2 WHERE "phoneNumber" = $3',
+      [otp, tokenExpires, phoneNumber]
+    );
 
-      res.json({ message: 'New OTP has been sent to your registered phone number' });
+    res.json({ message: 'New OTP has been sent to your registered phone number' });
   } catch (error) {
-      console.error(error.message);
-      res.status(500).json({ message: 'Server error' });
+    console.error(error.message);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
@@ -263,7 +262,7 @@ router.post('/login', async (req, res) => {
 
   try {
 
-    if (phoneNumber !== "" ) {
+    if (phoneNumber !== "") {
       console.log(email, password, phoneNumber)
       const phoneExists = await pool.query(
         'SELECT * FROM "users" WHERE "phoneNumber" = $1',
@@ -334,7 +333,7 @@ router.post('/login', async (req, res) => {
     //   maxAge: 7 * 24 * 60 * 60 * 1000,
     // });
 
-    res.json({ message: 'Login successful', token, id: user.rows[0].id, name:  user.rows[0].fullname});
+    res.json({ message: 'Login successful', token, id: user.rows[0].id, name: user.rows[0].fullname });
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ message: 'Server error' });
@@ -368,7 +367,7 @@ router.post('/verify-login-otp', async (req, res) => {
     //   maxAge: 7 * 24 * 60 * 60 * 1000,
     // });
 
-    return res.json({ message: 'Login successful', token, id: userId, name:  user.rows[0].fullname });
+    return res.json({ message: 'Login successful', token, id: userId, name: user.rows[0].fullname });
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ message: error.message || 'Server error' });
@@ -847,31 +846,31 @@ router.put('/update-user-portfolio', authMiddleware, async (req, res) => {
 
     // Fetch the user's current portfolio
     const currentPortfolio = await pool.query(
-      'SELECT "sellerId" FROM "userPortfolio" WHERE userId = $1',
+      'SELECT "sellerId" FROM "userPortfolio" WHERE "userId" = $1',
       [userId]
     );
 
     // Extract current sellerIds
-    const currentSellerIds = currentPortfolio.rows.map((row) => row.sellerid);
+    const currentSellerIds = currentPortfolio.rows.map((row) => row.sellerId);
 
     // Identify added and removed sellerIds
     const addedSellerIds = companyIds.filter((id) => !currentSellerIds.includes(id));
     const removedSellerIds = currentSellerIds.filter((id) => !companyIds.includes(id));
 
-    // Insert added sellerIds
-    for (const sellerId of addedSellerIds) {
-      await pool.query(
-        'INSERT INTO "userPortfolio" ("sellerId", "userId") VALUES ($1, $2)',
-        [sellerId, userId]
-      );
+    // Insert new sellerIds (using bulk insert)
+    if (addedSellerIds.length > 0) {
+      for (let index = 0; index < addedSellerIds.length; index++) {
+        const element = addedSellerIds[index];
+        await pool.query(`INSERT INTO "userPortfolio" ("sellerId", "userId") VALUES ($1, $2)`, [element, userId]);
+      }
     }
 
-    // Delete removed sellerIds
-    for (const sellerId of removedSellerIds) {
-      await pool.query(
-        'DELETE FROM "userSellersVisits" WHERE sellerId = $1 AND userId = $2',
-        [sellerId, userId]
-      );
+    // Remove sellerIds that are no longer part of the portfolio
+    if (removedSellerIds.length > 0) {
+      for (let index = 0; index < removedSellerIds.length; index++) {
+        const element = removedSellerIds[index];
+        await pool.query(`DELETE FROM "userPortfolio" WHERE "userId" = $1 AND "sellerId" = $2`, [userId, element]);
+      }
     }
 
     res.status(200).json({
