@@ -859,9 +859,12 @@ router.put('/update-user-portfolio', authMiddleware, async (req, res) => {
 
     // Insert new sellerIds (using bulk insert)
     if (addedSellerIds.length > 0) {
-      for (let index = 0; index < addedSellerIds.length; index++) {
-        const element = addedSellerIds[index];
-        await pool.query(`INSERT INTO "userPortfolio" ("sellerId", "userId") VALUES ($1, $2)`, [element, userId]);
+      for (const sellerId of addedSellerIds) {
+        const points = parseInt(Math.random() * 1000); // random generate the points
+        await pool.query(
+          'INSERT INTO "userPortfolio" ("sellerId", "userId", "coinsAvailable") VALUES ($1, $2, $3)',
+          [sellerId, userId, points]
+        );
       }
     }
 
