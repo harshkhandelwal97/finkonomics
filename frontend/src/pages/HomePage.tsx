@@ -11,8 +11,7 @@ import { CircularProgress } from "@mui/material";
 // import { ActionButton } from "../components/ActionButton";
 
 export const Homepage = () => {
-
-  const token = localStorage.getItem('token') || ""
+  const token = localStorage.getItem("token") || "";
   const [userPortfolio, setUserPortfolio] = useState<UserPortfolio[]>([]);
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>();
@@ -32,7 +31,6 @@ export const Homepage = () => {
   useEffect(() => {
     fetchUserPortfolio();
   }, []);
-
 
   const totalCoins = Math.round(
     userPortfolio.reduce(
@@ -55,17 +53,21 @@ export const Homepage = () => {
     if (!token || token === "") {
       navigate("/login")
     }
-  })
+  },[navigate,token]);
 
   return (
     <div className="home-main-page">
       <div className="pointinfo-sort">
         <div className="summary">
-          <div className="savedAmount">You saved {"₹675"} in total</div>
+          {totalCoins === 0 && Number(totalValue) === 0 ? (
+            <div className="savedAmount">Would you like to redeem all your reward points?</div>
+          ) : (
+            <div className="savedAmount">You saved ₹{totalValue} in total</div>
+          )}
+  
           <div className="summary-content">
             <div className="points">
               <div className="total-points">
-                {" "}
                 {totalCoins} <span>Points</span>
               </div>
               <div className="point-label">
@@ -79,15 +81,15 @@ export const Homepage = () => {
                 Use in store
               </button>
             </div>
-
+  
             <div className="money">
               <div className="total-value">₹{totalValue}</div>
               <div className="value-label">
                 <span>In Rupees</span>
                 <span className="info-icon">i</span>
               </div>
-
-              <button className=" action-button exchange-button">
+  
+              <button className="action-button exchange-button">
                 Exchange
               </button>
             </div>
@@ -116,4 +118,5 @@ export const Homepage = () => {
       )}
     </div>
   );
+  
 };
