@@ -29,9 +29,14 @@ Finkonomics is a unified reward system built with **React.js** that allows users
 
 ### 6. Entire Dashbord for Finkonomics Partners
 - We have dedicated plateform for our partners.
+- [https://finkonomics-partners.vercel.app/registration/email](#)
 
-### 6. [Important] 
+### 7. [Important] 
 - Use phone for better experience. 
+- Right now we have bypass the phone otp verification. You can enter any otp it will verify.
+- We are also assigning the coins randomly. But it is supposed that the partners/sellers give us coins/points related information for every particular user.
+- Please refer to app walkthough and desgin for better understanding
+
 
 ---
 
