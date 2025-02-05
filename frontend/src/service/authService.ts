@@ -108,7 +108,7 @@ export const getUserPortfolio = async () => {
 
 export const updateUserPorfolio = async (companyIds: string[]) => {
   const token = localStorage.getItem("token");
-  const response = await axiosInstance.post(
+  const response = await axiosInstance.put(
     "/api/user/update-user-portfolio",
     {
       companyIds,
